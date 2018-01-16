@@ -1,5 +1,5 @@
 BootStrap: docker
-From: ubuntu:zesty
+From: ubuntu:17.04
 
 %environment
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH-}:/titan_lib:/usr/local/cuda/lib:/usr/local/cuda/lib64
@@ -43,6 +43,9 @@ tar -xf titan_lib.tar.gz
 rm titan_lib.tar.gz
 
 # Copy over distro provided MPICH libraries
-cp /titan_lib/libmpich_gnu_49.so.3.0.1 /usr/lib/x86_64-linux-gnu/libmpich.so.12.1.0 && \
-cp /titan_lib/libmpichcxx_gnu_49.so.3.0.1 /usr/lib/x86_64-linux-gnu/libmpichcxx.so.12.1.0 && \
+cp /titan_lib/libmpich_gnu_49.so.3.0.1 /usr/lib/x86_64-linux-gnu/libmpich.so.12.1.0
+cp /titan_lib/libmpichcxx_gnu_49.so.3.0.1 /usr/lib/x86_64-linux-gnu/libmpichcxx.so.12.1.0
 cp /titan/lib/libfmpich_gnu_49.so.3.0.1 /usr/lib/x86_64-linux-gnu/libmpichfort.so.12.1.0
+
+# Remove static libraries so they aren't used
+rm /usr/lib/x86_64-linux-gnu/libmpich.a /usr/lib/x86_64-linux-gnu/libmpichcxx.a /usr/lib/x86_64-linux-gnu/libmpichfort.a

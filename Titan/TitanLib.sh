@@ -6,6 +6,7 @@ mkdir ./titan_lib
 cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libmpich_gnu_49.so.3.0.1 ./titan_lib
 cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libmpichcxx_gnu_49.so.3.0.1 ./titan_lib
 cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libfmpich_gnu_49.so.3.0.1 ./titan_lib
+cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libmpich_gnu_49.so.3.0.1 ./titan_lib/libmpich_gnu_49.so
 cp /opt/cray/xpmem/0.1-2.0502.64982.5.3.gem/lib64/libxpmem.so.0 ./titan_lib
 cp /opt/cray/ugni/6.0-1.0502.10863.8.28.gem/lib64/libugni.so.0 ./titan_lib
 cp /opt/cray/udreg/2.3.2-1.0502.10518.2.17.gem/lib64/libudreg.so.0 ./titan_lib
