@@ -1,10 +1,5 @@
 #!/bin/bash
 
-####
-## Append to #post in bootstrap or run after container creation
-## sudo singularity exec -w ./TitanPrep.sh
-####
-
 # Print commands executed
 set -x
 

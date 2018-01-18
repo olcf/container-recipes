@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+set -o xtrace
+
+export OS_CACERT=`pwd`/OpenStack.cer
+echo "using OS_CACERT="${OS_CACERT}
+
+# Destroy existing ContainerKitchen instance if one exists
+./DestroyKitchen
+
+# General VM settings
+BOOTIMG="CADES_Ubuntu16.04_v20170804_1"
+ZONE="nova"
+FLAVOR="m1.large"
+NIC=$(openstack network show -c id --format value or_provider_general_extnetwork1)
+
+KEY="ContainerKitchenKey"
+KEY_FILE="${SCRIPT_DIR}/${KEY}"
+
+echo "Bringing up VM"
+
+# Startup new VM
+VM_UUID=$(openstack server create                                       \
+    --image "${BOOTIMG}"                                                \
+    --flavor "${FLAVOR}"                                                \
+    --availability-zone "${ZONE}"                                       \
+    --nic net-id="${NIC}"                                               \
+    --key-name "${KEY}"                                                 \
+    --wait                                                              \
+    -c id                                                               \
+    -f value                                                            \
+    "ContainerKitchen");
+
+VM_IP=$(openstack server show -c addresses --format value ${VM_UUID} | sed -e "s/^or_provider_general_extnetwork1=//")
+
+echo "Waiting for SSH to come up"
+function ssh_is_up() {
+    ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} exit &> /dev/null
+}
+while ! ssh_is_up; do
+    sleep 1
+done
+
+echo "Fixing ORNL TCP timeout issue for current session"
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/DisableTcpTimestamps
+
+echo "Provisioning the kitchen"
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/ProvisionKitchen
+
+echo "Starting Gitlab runner"
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'gitlab-runner register'

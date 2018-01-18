@@ -1,0 +1,11 @@
+stages:
+  - build-recipes
+
+build-in-kitchen:
+  script:
+  - ./build-recipes
+  tags:
+  - container-kitchen
+  stage: build-recipes
+  only:
+  - tags
