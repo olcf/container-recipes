@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-# The following script will create titan.tar.gz container all Titan specific libraries
+# The following script will create titan_lib.tar.gz container all Titan specific libraries
 
 mkdir ./titan_lib
+
 cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libmpich_gnu_49.so.3.0.1 ./titan_lib
 cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libmpichcxx_gnu_49.so.3.0.1 ./titan_lib
 cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libfmpich_gnu_49.so.3.0.1 ./titan_lib

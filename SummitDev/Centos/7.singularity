@@ -2,10 +2,7 @@ BootStrap: docker
 From: ppc64le/centos:7
 
 %setup
-mkdir ${SINGULARITY_ROOTFS}/IBM
-cp /IBM/ibm_smpi-10.1.0.4-rh7.ppc64le.rpm ${SINGULARITY_ROOTFS}/IBM/ibm_smpi-10.1.0.4-rh7.ppc64le.rpm
-cp /IBM/ibm_smpi_lic_s-10.1-rh7.ppc64le.rpm ${SINGULARITY_ROOTFS}/IBM/ibm_smpi_lic_s-10.1-rh7.ppc64le.rpm
-cp /usr/bin/qemu-ppc64le  ${SINGULARITY_ROOTFS}/usr/bin/qemu-ppc64le
+cp /usr/bin/qemu-ppc64le ${SINGULARITY_ROOTFS}/usr/bin/qemu-ppc64le
 
 %environment
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib
@@ -20,8 +17,13 @@ yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel python-dev
          python34 python34-devel python34-pip python34-setuptools glibc-static libstdc++-static numactl
 
 # Install Spectrum MPI
+cd /
+wget -q https://code.ornl.gov/olcf/container-recipes/raw/master/SummitDev/summitdev_rpm.tar.gz
+tar -xf summitdev_rpm.tar.gz
+rm summitdev_rpm.tar.gz
 export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes
-yum -y --nogpgcheck localinstall /IBM/ibm_smpi-10.1.0.4-rh7.ppc64le.rpm /IBM/ibm_smpi_lic_s-10.1-rh7.ppc64le.rpm
+yum -y --nogpgcheck localinstall /summitdev_rpm/ibm_smpi-10.1.0.4-rh7.ppc64le.rpm /summitdev_rpm/ibm_smpi_lic_s-10.1-rh7.ppc64le.rpm
+rm -rf /summitdev_rpm
 
 pip2 install --upgrade pip
 pip3 install --upgrade pip
