@@ -1,11 +1,19 @@
 # Setting up the build host
-Before container-recipes CI tasks can be performed an appropriate build host must be created.
+Before container-recipes CI tasks can be performed an appropriate build host must be created that's running a gitlab runner. 
+Currently OpenStack provision scripts are provided which will allow a build instance to be spun up anywhere on the ORNL network and also the Titan login nodes. 
+The following steps may be taken to create such a host, a "kitchen" suitable to build the container recipes in, if you will.
 
 Prerequisite: On Titan
 * module load python
 * pip install --user python-openstackclient
+* ./CreateKitchen
+  * You will be prompted for your OpenStack password as well as the GitLab runner registration token
 
-Servers may be spun up anywhere on the ORNL network and also the Titan login nodes.
+If the instance is created without error you should be able to enable the runner for container-recipes through the gitlab web ui
+
+# openrc.sh creation
+
+The openrc.sh file under KitchenScripts sets up OpenStack credentials and was created as follows:
 * Login to `cloud.cades.ornl.gov`
 * Navigate to `Compute -> Access & Security -> API Access`
 * Click `Download OpenStack RC File v3`
@@ -16,9 +24,3 @@ Servers may be spun up anywhere on the ORNL network and also the Titan login nod
 export OS_PROJECT_DOMAIN_NAME=$OS_USER_DOMAIN_NAME
 export OS_IDENTITY_API_VERSION="3"
 ```
-
-A sample `openrc.sh` has been placed in KitchenScripts, overwrite it if necessary.
-
-* ./CreateKitchen
-
-After the host is setup the runner that's been created must be setup in the GitLab `CI/CD` settings

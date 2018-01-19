@@ -3,7 +3,7 @@ stages:
 
 build-in-kitchen:
   script:
-  - ./build-recipes
+  - ./BuildRecipes
   tags:
   - container-kitchen
   stage: build-recipes
