@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # Get script directory 
+set -e
+
+# Get script directory
 SCRIPT_DIR=$(dirname $0)
 
 export OS_CACERT=${SCRIPT_DIR}/OpenStack.cer
@@ -11,7 +14,6 @@ echo "Please enter your Gitlab registration token: "
 read -sr GITLAB_RUNNER_TOKEN_INPUT
 export GITLAB_RUNNER_TOKEN=${GITLAB_RUNNER_TOKEN_INPUT}
 
-set -e
 set -o xtrace
 
 # Destroy existing ContainerKitchen instance if one exists
@@ -60,4 +62,8 @@ echo "Provisioning the kitchen"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/ProvisionKitchen
 
 echo "Starting Gitlab runner"
+<<<<<<< HEAD
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} "sudo gitlab-runner register --non-interactive --tag-list 'kitchen, container-recipes' --name kitchen-runner --executor shell --url https://code.ornl.gov --registration-token ${GITLAB_RUNNER_TOKEN}"
+=======
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} "sudo gitlab-runner register --name kitchen-runner --url http://code.ornl.gov --registration-token ${GITLAB_RUNNER_TOKEN}"
+>>>>>>> d2b9ddbad4e7a212c97f6ae8b3b136498f90b490
