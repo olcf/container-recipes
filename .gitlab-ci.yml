@@ -1,11 +1,8 @@
 stages:
   - build-recipes
 
-build-in-kitchen:
-  script:
-  - ./KitchenScripts/BuildRecipes
-  tags:
-  - container-recipes
+create-containers:
+  script: ./KitchenScripts/BuildRecipes
+  tags: container-recipes
   stage: build-recipes
-  only:
-  - tags
+  only: tags
