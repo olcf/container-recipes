@@ -8,7 +8,8 @@ Prerequisite: Install `python-openstackclient`
 * ./CreateKitchen
   * You will be prompted for your OpenStack password as well as the GitLab runner registration token
 
-If the instance is created without error you should be able to enable the runner for container-recipes through the gitlab web ui
+If the instance is created without error you should be able to enable the runner for container-recipes through the gitlab web ui. `KitchenKey` will be placed
+in the `KitchenScripts` directory and can be used to ssh to the cades user.
 
 # openrc.sh creation
 
