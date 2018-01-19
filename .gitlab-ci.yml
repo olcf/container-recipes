@@ -6,7 +6,6 @@ create-containers:
   - ./KitchenScripts/BuildRecipes
   tags:
   - container-recipes
-  stages:
-  - build-recipes
+  stage: build-recipes
   only:
   - tags
