@@ -5,6 +5,9 @@ set -o xtrace
 
 TopDir=$(dirname $0)
 
-docker login code.ornl.gov:4567 -u atj -p ${GITLAB_REGISTRY_TOKEN}
+
+
+docker login code.ornl.gov:4567 -u atj -p $(cat /gitlab_registry_token)
 
 cd Titan/Centos-7
+
