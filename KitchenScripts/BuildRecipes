@@ -5,9 +5,9 @@ set -o xtrace
 
 TopDir=$(dirname $0)
 
-
-
 docker login code.ornl.gov:4567 -u atj -p $(cat /gitlab_registry_token)
 
-cd Titan/Centos-7
-
+# Loop through distros to be built on Titan
+for distro in ${TopDir}/Titan ; do
+    docker build -t code.ornl.gov:4567/olcf/container-recipes/Titan/$distro:2018-01-18 .
+done

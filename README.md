@@ -3,8 +3,7 @@ Before container-recipes CI tasks can be performed an appropriate build host mus
 Currently OpenStack provision scripts are provided which will allow a build instance to be spun up anywhere on the ORNL network and also the Titan login nodes. 
 The following steps may be taken to create such a host, a "kitchen" suitable to build the container recipes in, if you will.
 
-Prerequisite: On Titan
-* module load python
+Prerequisite: Install `python-openstackclient`
 * pip install --user python-openstackclient
 * ./CreateKitchen
   * You will be prompted for your OpenStack password as well as the GitLab runner registration token
