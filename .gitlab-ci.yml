@@ -5,7 +5,7 @@ build-in-kitchen:
   script:
   - ./BuildRecipes
   tags:
-  - container-kitchen
+  - container-recipes
   stage: build-recipes
   only:
   - tags
