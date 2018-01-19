@@ -17,7 +17,9 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
         for TAG_DIR in $DISTRO_DIR/*/ ; do
             cd ${TAG_DIR}
             TAG=$(basename ${TAG_DIR})
-            docker build -t code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG} .
+            FULL_TAG="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG}"
+            docker build -t ${FULL_TAG} .
+            docker push ${FULL_TAG}
         done
     done
 done
