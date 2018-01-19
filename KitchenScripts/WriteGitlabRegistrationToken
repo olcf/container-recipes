@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo ${GITLAB_REGISTRY_TOKEN} > /gitlab_registry_token
