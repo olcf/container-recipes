@@ -3,11 +3,16 @@
 set -e
 set -o xtrace
 
-export OS_CACERT=`pwd`/OpenStack.cer
+# Get script directory 
+SCRIPT_DIR=$(dirname $0)
+
+export OS_CACERT=${SCRIPT_DIR}/OpenStack.cer
 echo "using OS_CACERT="${OS_CACERT}
 
+source ${SCRIPT_DIR}/openrc.sh
+
 # Destroy existing ContainerKitchen instance if one exists
-./DestroyKitchen
+./DestroyKitchen --no_login
 
 # General VM settings
 BOOTIMG="CADES_Ubuntu16.04_v20170804_1"
@@ -15,8 +20,11 @@ ZONE="nova"
 FLAVOR="m1.large"
 NIC=$(openstack network show -c id --format value or_provider_general_extnetwork1)
 
-KEY="ContainerKitchenKey"
+# Create a new keypair
+KEY="KitchenKey"
 KEY_FILE="${SCRIPT_DIR}/${KEY}"
+openstack keypair create ${KEY} > ${KEY_FILE}
+chmod 600 ${KEY_FILE}
 
 echo "Bringing up VM"
 
@@ -49,4 +57,4 @@ echo "Provisioning the kitchen"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/ProvisionKitchen
 
 echo "Starting Gitlab runner"
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'gitlab-runner register'
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'gitlab-multi-runner register'
