@@ -5,7 +5,7 @@ Prerequisite: On Titan
 * module load python
 * pip install --user python-openstackclient
 
-Servers may be spun up anywhere on the ORNL network and also the Titan login nodes. To obtain the credentials required for access take the following steps.
+Servers may be spun up anywhere on the ORNL network and also the Titan login nodes.
 * Login to `cloud.cades.ornl.gov`
 * Navigate to `Compute -> Access & Security -> API Access`
 * Click `Download OpenStack RC File v3`
@@ -16,6 +16,8 @@ Servers may be spun up anywhere on the ORNL network and also the Titan login nod
 export OS_PROJECT_DOMAIN_NAME=$OS_USER_DOMAIN_NAME
 export OS_IDENTITY_API_VERSION="3"
 ```
+
+A sample `openrc.sh` has been placed in KitchenScripts, overwrite it if necessary.
 
 * ./CreateKitchen
 
