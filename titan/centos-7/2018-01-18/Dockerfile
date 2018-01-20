@@ -25,7 +25,8 @@ RUN pip2 install --upgrade pip && \
     pip2 install mpi4py && \
     pip3 install mpi4py
 
-RUN ./BindMounts
+RUN ./BindMounts && \
+    rm /BindMounts
 
 RUN tar -xf /titan_lib.tar.gz && \
     rm /titan_lib.tar.gz

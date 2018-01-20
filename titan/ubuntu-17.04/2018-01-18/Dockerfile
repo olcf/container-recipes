@@ -19,7 +19,8 @@ RUN ln -s /usr/bin/g++-4.9 /usr/local/cuda/bin/g++
 
 RUN pip install mpi4py
 
-RUN /BindMounts
+RUN /BindMounts && \
+    rm /BindMounts
 
 RUN tar -xf /titan_lib.tar.gz && \
     rm /titan_lib.tar.gz
