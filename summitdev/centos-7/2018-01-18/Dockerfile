@@ -1,7 +1,6 @@
 FROM ppc64le/centos:7
 
-%setup
-cp /usr/bin/qemu-ppc64le ${SINGULARITY_ROOTFS}/usr/bin/qemu-ppc64le
+COPY /usr/bin/qemu-ppc64le /usr/bin/qemu-ppc64le
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib
 ENV PATH=${PATH-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin:/opt/ibm/spectrum_mpi/bin
