@@ -4,10 +4,10 @@
 
 mkdir ./titan_lib
 
-cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libmpich_gnu_49.so.3.0.1 ./titan_lib
-cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libmpichcxx_gnu_49.so.3.0.1 ./titan_lib
-cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libfmpich_gnu_49.so.3.0.1 ./titan_lib
-cp /opt/cray/mpt/7.5.0/gni/mpich-gnu/4.9/lib/libmpich_gnu_49.so.3.0.1 ./titan_lib/libmpich_gnu_49.so
+cp /opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib/libmpich_gnu_49.so.3.0.1 ./titan_lib
+cp /opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib/libmpichcxx_gnu_49.so.3.0.1 ./titan_lib
+cp /opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib/libfmpich_gnu_49.so.3.0.1 ./titan_lib
+cp /opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib/libmpich_gnu_49.so.3.0.1 ./titan_lib/libmpich_gnu_49.so
 cp /opt/cray/xpmem/0.1-2.0502.64982.5.3.gem/lib64/libxpmem.so.0 ./titan_lib
 cp /opt/cray/ugni/6.0-1.0502.10863.8.28.gem/lib64/libugni.so.0 ./titan_lib
 cp /opt/cray/udreg/2.3.2-1.0502.10518.2.17.gem/lib64/libudreg.so.0 ./titan_lib
@@ -35,10 +35,10 @@ cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-tls.so.352.101
 cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-wfb.so.352.101 ./titan_lib
 cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libOpenCL.so.1.0.0 ./titan_lib
 cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-opencl.so.352.101 ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libOpenGL.so ./titan_lib
 cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libvdpau_nvidia.so.352.101 ./titan_lib
 cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/nvidia_drv.so ./titan_lib
 cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/tls_test_dso.so ./titan_lib
 cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/tls/libnvidia-tls.so.352.101 ./titan_lib
 
 tar -zcvf ./titan_lib.tar.gz ./titan_lib
+rm -rf ./titan_lib
