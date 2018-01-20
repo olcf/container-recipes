@@ -65,5 +65,4 @@ EOF
 sudo apt-get install gitlab-runner
 
 # Allow the gitlab-runner user to run docker
-groupadd docker
 usermod -aG docker gitlab-runner
