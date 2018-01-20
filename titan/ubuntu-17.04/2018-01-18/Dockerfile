@@ -1,6 +1,7 @@
 FROM ubuntu:17.04
 
 COPY titan_lib.tar.gz /titan_lib.tar.gz
+COPY BindMounts /BindMounts
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/titan_lib:/usr/local/cuda/lib:/usr/local/cuda/lib64
 ENV PATH=${PATH:-}:/usr/local/cuda/bin
@@ -18,10 +19,7 @@ RUN ln -s /usr/bin/g++-4.9 /usr/local/cuda/bin/g++
 
 RUN pip install mpi4py
 
-RUN wget -q https://code.ornl.gov/olcf/container-recipes/raw/master/titan/BindMounts && \
-    chmod +x ./BindMounts && \
-    ./BindMounts && \
-    rm ./BindMounts
+RUN /BindMounts
 
 RUN tar -xf /titan_lib.tar.gz && \
     rm /titan_lib.tar.gz
