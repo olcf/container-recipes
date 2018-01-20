@@ -2,8 +2,8 @@ FROM centos:7
 
 COPY titan_lib.tar.gz /titan_lib.tar.gz
 
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH-}:/usr/local/cuda/lib:/usr/local/cuda/lib64
-ENV PATH=${PATH-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64
+ENV PATH=${PATH:-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin
 
 RUN yum -y update && \
     yum -y install epel-release && \
