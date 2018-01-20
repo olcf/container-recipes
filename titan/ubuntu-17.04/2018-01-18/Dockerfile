@@ -2,8 +2,8 @@ FROM ubuntu:17.04
 
 COPY titan_lib.tar.gz /titan_lib.tar.gz
 
-ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH-}:/titan_lib:/usr/local/cuda/lib:/usr/local/cuda/lib64
-ENV PATH ${PATH-}:/usr/local/cuda/bin
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH-}:/titan_lib:/usr/local/cuda/lib:/usr/local/cuda/lib64
+ENV PATH=${PATH-}:/usr/local/cuda/bin
 
 RUN apt-get update && apt-add-repository universe && apt-get install -y \
         software-properties-common wget pkg-config  gcc-4.9 g++-4.9 mpich python-pip
