@@ -9,7 +9,8 @@ whoami
 
 docker login code.ornl.gov:4567 -u atj -p $(cat /gitlab_registry_token)
 
-SYSTEMS=(Titan SummitDev)
+# System directories in which to look for builds in
+SYSTEMS=(titan summitdev)
 
 # Loop through directory struction container-recipes/{SYSTEM}/{DISTRO}/{TAG} and build docker image
 for SYSTEM in "${SYSTEMS[@]}" ; do
