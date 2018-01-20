@@ -1,11 +1,17 @@
 stages:
-  - build-recipes
+  - cook-recipes
+  - serve-recipes
 
-create-kitchen:
+cook:
   script:
-  - ./KitchenScripts/BuildRecipes
+  - ./KitchenScripts/cook-recipes.sh
   tags:
   - container-recipes
-  stage: build-recipes
-  only:
-  - tags
+  stage: cook-recipes
+
+serve:
+  script:
+  - ./KitchenScripts/serve-recipes.sh
+  tags:
+  - container-recipes
+  stage: serve-recipes

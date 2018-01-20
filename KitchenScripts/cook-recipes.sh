@@ -22,7 +22,6 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
             TAG=$(basename ${TAG_DIR})
             FULL_TAG="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG}"
             docker build -t ${FULL_TAG} .
-            docker push ${FULL_TAG}
         done
     done
 done
