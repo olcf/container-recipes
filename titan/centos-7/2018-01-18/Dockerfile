@@ -25,6 +25,7 @@ RUN pip2 install --upgrade pip && \
     pip3 install mpi4py
 
 RUN wget -q https://code.ornl.gov/olcf/container-recipes/raw/master/titan/BindMounts && \
+    chmod +x ./BindMounts && \
     ./BindMounts && \
     rm ./BindMounts
 

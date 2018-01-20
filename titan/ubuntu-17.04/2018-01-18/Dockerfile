@@ -19,6 +19,7 @@ RUN ln -s /usr/bin/g++-4.9 /usr/local/cuda/bin/g++
 RUN pip install mpi4py
 
 RUN wget -q https://code.ornl.gov/olcf/container-recipes/raw/master/titan/BindMounts && \
+    chmod +x ./BindMounts && \
     ./BindMounts && \
     rm ./BindMounts
 
