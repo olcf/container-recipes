@@ -24,9 +24,9 @@ RUN pip2 install --upgrade pip && \
     pip2 install mpi4py && \
     pip3 install mpi4py
 
-RUN wget -q https://code.ornl.gov/olcf/container-recipes/raw/master/Titan/BindMounts.sh && \
-    sh /BindMounts.sh && \
-    rm BindMounts.sh
+RUN wget -q https://code.ornl.gov/olcf/container-recipes/raw/master/titan/BindMounts && \
+    ./BindMounts && \
+    rm ./BindMounts
 
 RUN tar -xf /titan_lib.tar.gz && \
     rm /titan_lib.tar.gz
@@ -35,7 +35,3 @@ RUN cp /titan_lib/libmpich_gnu_49.so.3.0.1 /usr/lib64/mpich/lib/libmpich.so.10.0
     cp /titan_lib/libmpichcxx_gnu_49.so.3.0.1 /usr/lib64/mpich/lib/libmpichcxx.so.10.0.4 && \
     cp /titan/lib/libfmpich_gnu_49.so.3.0.1 /usr/lib64/mpich/lib/libmpichf90.so.10.0.4 && \
     cp /titan/lib/libfmpich_gnu_49.so.3.0.1 /usr/lib64/mpich/lib/libfmpich.so.10.0.4
-
-# Create bind mount paths
-RUN wget -q https://code.ornl.gov/olcf/container-recipes/blob/master/titan/BindMounts.sh && \
-    ./BindMounts.sh

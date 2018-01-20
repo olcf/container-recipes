@@ -47,7 +47,3 @@ RUN wget -q http://developer.download.nvidia.com/compute/redist/cudnn/v7.0.3/cud
 # Clean up CUDA install
 RUN rm -rf cuda-repo-rhel7-9-0-local-9.0.176-1.ppc64le-rpm && \
     rm -rf cudnn-9.0-linux-ppc64le-v7.tgz
-
-# Create bind mount paths
-RUN wget -q https://code.ornl.gov/olcf/container-recipes/blob/master/titan/BindMounts.sh && \
-    ./BindMounts.sh
