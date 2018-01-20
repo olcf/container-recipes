@@ -63,3 +63,7 @@ Pin: origin packages.gitlab.com
 Pin-Priority: 1001
 EOF
 sudo apt-get install gitlab-runner
+
+# Allow the gitlab-runner user to run docker
+groupadd docker
+usermod -aG docker gitlab-runner
