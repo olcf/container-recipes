@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# The following script will create titan_lib.tar.gz container all Titan specific libraries
+# The following script will create titan_lib.tar.gz container all titan specific libraries
 
 mkdir ./titan_lib
 
