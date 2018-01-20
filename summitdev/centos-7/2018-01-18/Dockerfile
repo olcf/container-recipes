@@ -1,6 +1,7 @@
 FROM ppc64le/centos:7
 
-COPY /usr/bin/qemu-ppc64le /usr/bin/qemu-ppc64le
+ADD https://code.ornl.gov/olcf/container-recipes/raw/master/summitdev/qemu-ppc64le /usr/bin/qemu-ppc64le
+COPY summitdev_rpm.tar.gz /summitdev_rpm.tar.gz
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib
 ENV PATH=${PATH-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin:/opt/ibm/spectrum_mpi/bin
@@ -13,9 +14,8 @@ RUN yum -y update && \
 
 # Install Spectrum MPI
 RUN cd / && \
-    wget -q https://code.ornl.gov/olcf/container-recipes/raw/master/SummitDev/summitdev_rpm.tar.gz && \
-    tar -xf summitdev_rpm.tar.gz && \
-    rm summitdev_rpm.tar.gz && \
+    tar -xf /summitdev_rpm.tar.gz && \
+    rm /summitdev_rpm.tar.gz && \
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
     yum -y --nogpgcheck localinstall /summitdev_rpm/ibm_smpi-10.1.0.4-rh7.ppc64le.rpm \
                                      /summitdev_rpm/ibm_smpi_lic_s-10.1-rh7.ppc64le.rpm && \
