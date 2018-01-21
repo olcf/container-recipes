@@ -26,7 +26,7 @@ export GITLAB_REGISTRY_TOKEN=${GITLAB_REGISTRY_TOKEN_INPUT}
 set -o xtrace
 
 # Destroy existing ContainerKitchen instance if one exists
-destroy-kitchen.sh --no_login
+./destroy-kitchen.sh --no_login
 
 # General VM settings
 BOOTIMG="CADES_Ubuntu16.04_v20170804_1"
