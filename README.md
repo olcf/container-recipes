@@ -5,11 +5,14 @@ The following steps may be taken to create such a host, a "kitchen" suitable to 
 
 Prerequisite: Install `python-openstackclient`
 * pip install --user python-openstackclient
-* ./CreateKitchen
+
+To run
+* cd kitchen_recipes
+* ./create_kitchen
   * You will be prompted for your OpenStack password as well as the GitLab runner registration token
 
 If the instance is created without error you should be able to enable the runner for container-recipes through the gitlab web ui. `KitchenKey` will be placed
-in the `KitchenScripts` directory and can be used to ssh to the cades user.
+in the `kitchen_scripts` directory and can be used to ssh to the Kitchen instance as the `cades` user.
 
 # openrc.sh creation
 
