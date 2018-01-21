@@ -9,12 +9,13 @@ ENV PATH=${PATH:-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin
 RUN yum -y update && \
     yum -y install epel-release && \
     yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel python-devel python-pip python-setuptools \
-                   python34 python34-devel python34-pip python34-setuptools glibc-static libstdc++-static numactl
+                   python34 python34-devel python34-pip python34-setuptools glibc-static libstdc++-static numactl && \
+    yum -y clean all
 
 RUN wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run && \
     export PERL5LIB=. && \
     sh cuda_7.5.18_linux.run --silent --toolkit --override && \
-    rm cuda_7.5.18_linux.run
+    rm -rf cuda_7.5.18_linux.run
 
 RUN pip2 install --upgrade pip && \
     pip3 install --upgrade pip && \
