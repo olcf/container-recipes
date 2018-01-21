@@ -21,8 +21,13 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
             cd ${TAG_DIR}
             TAG=$(basename ${TAG_DIR})
             FULL_TAG="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG}"
-            QEMU="--mount type=bind,source=/usr/bin/qemu-ppc64le,target=/usr/bin/qemu-ppc64le"
-            docker build ${QEMU} -t ${FULL_TAG} .
+
+            # Copy QEMU binary to build directory if we're building for a power system
+            if [ "${SYSTEM}" == "summitdev" ]; then
+                cp ../../qemu-ppc64le .
+            fi
+
+            docker build -t ${FULL_TAG} .
         done
     done
 done

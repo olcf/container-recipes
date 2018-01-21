@@ -74,3 +74,9 @@ ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < $
 
 echo "Starting Gitlab runner"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} "sudo gitlab-runner register --non-interactive --tag-list 'kitchen, container-recipes' --name kitchen-runner --executor shell --url https://code.ornl.gov --registration-token ${GITLAB_RUNNER_TOKEN}"
+
+echo "Updating qemu-ppc64le binary in rep"
+scp -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP}:/usr/bin/qemu-ppc64le ${SCRIPT_DIR}/../summitdev
+git add ${SCRIPT_DIR}/../summitdev/qemu-ppc64le
+git commit -m "updating qemu-ppc64le"
+git push https://atj:${GITLAB_REGISTRY_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
