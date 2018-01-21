@@ -1,6 +1,5 @@
 FROM ppc64le/centos:7
 
-ADD https://code.ornl.gov/olcf/container-recipes/raw/master/summitdev/qemu-ppc64le /usr/bin/qemu-ppc64le
 COPY summitdev_rpm.tar.gz /summitdev_rpm.tar.gz
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib
