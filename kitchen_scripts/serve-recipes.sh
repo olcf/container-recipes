@@ -5,10 +5,6 @@ set -e
 # This script lives one directory below the top level container-recipes directory
 TOP_DIR=$(cd `dirname $0`/.. && pwd)
 
-whoami
-
-docker login code.ornl.gov:4567 -u atj -p $(cat /gitlab_registry_token)
-
 # System directories in which to look for builds in
 SYSTEMS=(titan summitdev)
 
@@ -21,6 +17,8 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
             cd ${TAG_DIR}
             TAG=$(basename ${TAG_DIR})
             FULL_TAG="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG}"
+            # There is a finite token lifetime and so we refresh it before every push
+            docker login code.ornl.gov:4567 -u atj -p $(cat /gitlab_registry_token)
             docker push ${FULL_TAG}
         done
     done
