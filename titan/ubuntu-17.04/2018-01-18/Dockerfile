@@ -1,4 +1,4 @@
-FROM ubuntu:17.04
+FROM ubuntu:16.04
 
 COPY titan_lib.tar.gz /titan_lib.tar.gz
 COPY bind_mounts.sh /bind_mounts.sh
