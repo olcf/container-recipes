@@ -18,7 +18,7 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
             TAG=$(basename ${TAG_DIR})
             FULL_TAG="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG}"
             # There is a finite token lifetime and so we refresh it before every push
-            docker login code.ornl.gov:4567 -u atj -p $(cat /gitlab_registry_token)
+            docker login code.ornl.gov:4567 -u atj -p $(cat /gitlab-registry-token)
             docker push ${FULL_TAG}
         done
     done

@@ -64,10 +64,10 @@ while ! ssh_is_up; do
 done
 
 echo "Fixing ORNL TCP timeout issue for current session"
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/disable_TCP_timestamps.sh
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/disable-TCP-timestamps.sh
 
 echo "Provisioning the kitchen"
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/provision_kitchen.sh
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/provision-kitchen.sh
 
 echo "Copying gitlab registry credentials"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/gitlab_registry_token.sh ${GITLAB_REGISTRY_TOKEN}
