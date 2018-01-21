@@ -4,14 +4,14 @@ stages:
 
 cook:
   script:
-  - ./kitchen_scripts/cook-recipes.sh
+  - ./kitchen-scripts/cook-recipes.sh
   tags:
   - container-recipes
   stage: cook-recipes
 
 serve:
   script:
-  - ./kitchen_scripts/serve-recipes.sh
+  - ./kitchen-scripts/serve-recipes.sh
   tags:
   - container-recipes
   stage: serve-recipes
