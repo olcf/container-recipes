@@ -8,9 +8,8 @@ ENV PATH=${PATH:-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin:/opt/ibm/spectrum_mp
 
 RUN yum -y update && \
     yum -y install epel-release && \
-    yum -y update && \
-    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel python-devel python-pip python-setuptools \
-         python34 python34-devel python34-pip python34-setuptools glibc-static libstdc++-static numactl && \
+    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb python-devel python-pip python-setuptools \
+                   python34 python34-devel python34-pip python34-setuptools glibc-static libstdc++-static numactl && \
     yum -y clean all
 
 # Install Spectrum MPI
