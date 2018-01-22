@@ -40,6 +40,7 @@ RUN export PERL5LIB=. && \
     wget -q https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda-repo-rhel7-9-0-local-9.0.176-1.ppc64le-rpm && \
     rpm -i cuda-repo-rhel7-9-0-local-9.0.176-1.ppc64le-rpm && \
     yum -y install cuda-toolkit-9-0 && \
+    rpm -evv cuda-repo-rhel7-9-0-local-9.0.176-1.ppc64le && \
     yum -y clean all && \
     rm -rf /var/cache/yum && \
     cd / && \
