@@ -8,6 +8,8 @@ cook:
   tags:
   - container-recipes
   stage: cook-recipes
+  only:
+  - tags
 
 serve:
   script:
@@ -15,3 +17,5 @@ serve:
   tags:
   - container-recipes
   stage: serve-recipes
+  only:
+  - tags

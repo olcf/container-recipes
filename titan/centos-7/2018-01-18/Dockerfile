@@ -10,7 +10,8 @@ RUN yum -y update && \
     yum -y install epel-release && \
     yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel python-devel python-pip python-setuptools \
                    python34 python34-devel python34-pip python34-setuptools glibc-static libstdc++-static numactl && \
-    yum -y clean all
+    yum -y clean all && \
+    rm -rf /var/cache/yum
 
 RUN wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run && \
     export PERL5LIB=. && \

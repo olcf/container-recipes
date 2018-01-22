@@ -20,7 +20,7 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
 
             # Copy QEMU binary to build directory if we're building for a power system
             if [ "${SYSTEM}" == "summitdev" ]; then
-                cp ../../qemu-ppc64le .
+                cp ../../qemu-ppc64le-static .
             fi
 
             docker build -t ${FULL_TAG} .
