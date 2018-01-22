@@ -18,14 +18,14 @@ RUN wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_ins
     sh cuda_7.5.18_linux.run --silent --toolkit --override && \
     rm -rf cuda_7.5.18_linux.run
 
-RUN pip2 install --upgrade pip && \
-    pip3 install --upgrade pip && \
-    pip2 install setuptools --upgrade && \
-    pip3 install setuptools --upgrade && \
-    pip2 install --upgrade wheel && \
-    pip3 install --upgrade wheel && \
-    pip2 install mpi4py && \
-    pip3 install mpi4py
+RUN pip2 --no-cache-dir install --upgrade pip && \
+    pip3 --no-cache-dir install --upgrade pip && \
+    pip2 --no-cache-dir install setuptools --upgrade && \
+    pip3 --no-cache-dir install setuptools --upgrade && \
+    pip2 --no-cache-dir install --upgrade wheel && \
+    pip3 --no-cache-dir install --upgrade wheel && \
+    pip2 --no-cache-dir install mpi4py && \
+    pip3 --no-cache-dir install mpi4py
 
 RUN ./bind_mounts.sh && \
     rm /bind_mounts.sh
