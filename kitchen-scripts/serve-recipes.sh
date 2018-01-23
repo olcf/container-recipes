@@ -12,12 +12,12 @@ SYSTEMS=(titan summitdev)
 
 # A string containing all of the tags which is prepended to the README to allow the mirror to show what images are available
 # This string is built up as the directory tree is traversed and containers are pushed to the registry
-REGISTRY_LIST="#Images\n"
+REGISTRY_LIST="# Images\n"
 
 # Loop through directory struction container-recipes/{SYSTEM}/{DISTRO}/{TAG} and build docker image
 for SYSTEM in "${SYSTEMS[@]}" ; do
     SYSTEM_DIR=${TOP_DIR}/${SYSTEM}
-    REGISTRY_LIST=${REGISTRY_LIST}"\n##${SYSTEM}\n"
+    REGISTRY_LIST=${REGISTRY_LIST}"\n## ${SYSTEM}\n"
 
     for DISTRO_DIR in $SYSTEM_DIR/*/ ; do
         DISTRO=$(basename ${DISTRO_DIR})
