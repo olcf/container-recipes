@@ -37,10 +37,11 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
     done
 done
 
+# Provide git user information required for commit
 git config --global user.email "atj@ornl.gov"
 git config --global user.name "atj"
 
-# Add registry list markdown to repo
+# Update registry list markdown
 echo -e ${REGISTRY_LIST} > ${TOP_DIR}/REGISTRY_LIST.md
 git add ${TOP_DIR}/REGISTRY_LIST.md
 git commit -m "Updating registry list"
