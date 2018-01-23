@@ -37,9 +37,11 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
     done
 done
 
-echo -e ${REGISTRY_LIST} > ${TOP_DIR}/REGISTRY_LIST.md
-git add ${TOP_DIR}/REGISTRY_LIST.md
 git config --global user.email "atj@ornl.gov"
 git config --global user.name "atj"
+
+# Add registry list markdown to repo
+echo -e ${REGISTRY_LIST} > ${TOP_DIR}/REGISTRY_LIST.md
+git add ${TOP_DIR}/REGISTRY_LIST.md
 git commit -m "Updating registry list"
-git push https://atj:${GIT_TOKEN}@code.ornl.gov:4567/olcf/container-recipes
+git push https://atj:${GIT_TOKEN}@code.ornl.gov:4567/olcf/container-recipes master
