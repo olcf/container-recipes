@@ -45,4 +45,4 @@ git config --global user.name "atj"
 echo -e ${REGISTRY_LIST} > ${TOP_DIR}/REGISTRY_LIST.md
 git add ${TOP_DIR}/REGISTRY_LIST.md
 git commit -m "Updating registry list"
-git push https://atj:${GIT_TOKEN}@code.ornl.gov:4567/olcf/container-recipes master
+git push https://atj:${GIT_TOKEN}@code.ornl.gov/olcf/container-recipes master
