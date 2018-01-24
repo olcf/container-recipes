@@ -45,6 +45,5 @@ git config --global user.name "atj"
 echo -e "${REGISTRY_LIST}" > ${TOP_DIR}/REGISTRY_LIST.md
 git checkout -B master origin/master
 git add ${TOP_DIR}/REGISTRY_LIST.md
-git commit -m "Updating registry list"
-git diff-index --quiet HEAD || git commit -m 'bla' && \
-    git push https://atj:${GIT_TOKEN}@code.ornl.gov/olcf/container-recipes master
+git diff-index --quiet HEAD || git commit -m "Updating registry list"
+git push https://atj:${GIT_TOKEN}@code.ornl.gov/olcf/container-recipes master
