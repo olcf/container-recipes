@@ -8,7 +8,7 @@ ENV PATH=${PATH:-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin
 
 RUN yum -y update && \
     yum -y install epel-release && \
-    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel glibc-static libstdc++-static numactl patchelf && \
+    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel glibc-static libstdc++-static numactl && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
@@ -22,6 +22,14 @@ RUN ./bind_mounts.sh && \
 
 RUN tar -xf /titan_lib.tar.gz && \
     rm /titan_lib.tar.gz
+
+RUN wget https://github.com/NixOS/patchelf/archive/0.9.tar.gz && \
+    tar xf 0.9.tar.gz && \
+    cd patchelf-0.9 && \
+    ./configure && \
+    make && \
+    make install && \
+    rm -rf 0.9.tar.gz patchelf-0.9
 
 RUN patchelf --set-rpath /titan_lib /titan_lib/libmpich_gnu_49.so.3.0.1
 RUN patchelf --set-rpath /titan_lib /titan_lib/libmpichcxx_gnu_49.so.3.0.1
