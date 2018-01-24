@@ -17,8 +17,6 @@ RUN wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_ins
 RUN ln -s /usr/bin/gcc-4.9 /usr/local/cuda/bin/gcc
 RUN ln -s /usr/bin/g++-4.9 /usr/local/cuda/bin/g++
 
-RUN pip install mpi4py
-
 RUN /bind_mounts.sh && \
     rm /bind_mounts.sh
 
