@@ -8,8 +8,7 @@ ENV PATH=${PATH:-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin
 
 RUN yum -y update && \
     yum -y install epel-release && \
-    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel python-devel python-pip python-setuptools \
-                   python34 python34-devel python34-pip python34-setuptools glibc-static libstdc++-static numactl && \
+    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel glibc-static libstdc++-static numactl && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
@@ -17,15 +16,6 @@ RUN wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_ins
     export PERL5LIB=. && \
     sh cuda_7.5.18_linux.run --silent --toolkit --override && \
     rm -rf cuda_7.5.18_linux.run
-
-RUN pip2 --no-cache-dir install --upgrade pip && \
-    pip3 --no-cache-dir install --upgrade pip && \
-    pip2 --no-cache-dir install setuptools --upgrade && \
-    pip3 --no-cache-dir install setuptools --upgrade && \
-    pip2 --no-cache-dir install --upgrade wheel && \
-    pip3 --no-cache-dir install --upgrade wheel && \
-    pip2 --no-cache-dir install mpi4py && \
-    pip3 --no-cache-dir install mpi4py
 
 RUN ./bind_mounts.sh && \
     rm /bind_mounts.sh
