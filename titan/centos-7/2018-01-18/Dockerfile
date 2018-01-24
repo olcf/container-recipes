@@ -26,6 +26,7 @@ RUN tar -xf /titan_lib.tar.gz && \
 RUN wget https://github.com/NixOS/patchelf/archive/0.9.tar.gz && \
     tar xf 0.9.tar.gz && \
     cd patchelf-0.9 && \
+    autoconf && \
     ./configure && \
     make && \
     make install && \
