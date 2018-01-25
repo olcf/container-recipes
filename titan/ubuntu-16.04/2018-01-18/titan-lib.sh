@@ -7,15 +7,15 @@ rm -rf ./titan_lib
 
 mkdir ./titan_lib
 
-cp --preserve=links /opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib/*.so*           ./titan_lib
+cp /opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib/*.so*           ./titan_lib
 
-cp --preserve=links /opt/cray/sysutils/1.0-1.0502.60492.1.1.gem/lib64/*.so*   ./titan_lib
-cp --preserve=links /opt/cray/wlm_detect/1.0-1.0502.64649.2.2.gem/lib64/*.so* ./titan_lib
-cp --preserve=links /opt/cray/xpmem/0.1-2.0502.64982.5.3.gem/lib64/*.so*      ./titan_lib
-cp --preserve=links /opt/cray/ugni/6.0-1.0502.10863.8.28.gem/lib64/*.so*      ./titan_lib
-cp --preserve=links /opt/cray/udreg/2.3.2-1.0502.10518.2.17.gem/lib64/*.so*   ./titan_lib
-cp --preserve=links /opt/cray/pmi/5.0.12/lib64/*.so*                          ./titan_lib
-cp --preserve=links /opt/cray/alps/5.2.4-2.0502.9950.37.1.gem/lib64/*.so*     ./titan_lib
+cp /opt/cray/sysutils/1.0-1.0502.60492.1.1.gem/lib64/*.so*   ./titan_lib
+cp /opt/cray/wlm_detect/1.0-1.0502.64649.2.2.gem/lib64/*.so* ./titan_lib
+cp /opt/cray/xpmem/0.1-2.0502.64982.5.3.gem/lib64/*.so*      ./titan_lib
+cp /opt/cray/ugni/6.0-1.0502.10863.8.28.gem/lib64/*.so*      ./titan_lib
+cp /opt/cray/udreg/2.3.2-1.0502.10518.2.17.gem/lib64/*.so*   ./titan_lib
+cp /opt/cray/pmi/5.0.12/lib64/*.so*                          ./titan_lib
+cp /opt/cray/alps/5.2.4-2.0502.9950.37.1.gem/lib64/*.so*     ./titan_lib
 
 cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libcuda.so.352.101            ./titan_lib
 cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libEGL.so.352.101             ./titan_lib
