@@ -2,6 +2,9 @@
 
 # The following script will create titan_lib.tar.gz container all titan specific libraries
 
+rm -rf ./titan_lib.tar.gz
+rm -rf ./titan_lib
+
 mkdir ./titan_lib
 
 cp --preserve=links /opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib/*.so*           ./titan_lib
