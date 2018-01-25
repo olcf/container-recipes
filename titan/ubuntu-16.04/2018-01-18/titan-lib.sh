@@ -4,7 +4,7 @@
 
 mkdir ./titan_lib
 
-cp --preserve=links /opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib/*.so*
+cp --preserve=links /opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib/*.so*           ./titan_lib
 
 cp --preserve=links /opt/cray/sysutils/1.0-1.0502.60492.1.1.gem/lib64/*.so*   ./titan_lib
 cp --preserve=links /opt/cray/wlm_detect/1.0-1.0502.64649.2.2.gem/lib64/*.so* ./titan_lib
