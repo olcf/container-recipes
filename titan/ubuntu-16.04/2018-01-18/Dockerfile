@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 COPY titan_lib.tar.gz /titan_lib.tar.gz
 COPY bind_mounts.sh /bind_mounts.sh
 
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/titan_lib:/usr/local/cuda/lib:/usr/local/cuda/lib64
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/titan_lib:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/cray/mpt/7.6.3/gni/mpich-gnu/4.9/lib
 ENV PATH=${PATH:-}:/usr/local/cuda/bin
 
 RUN apt-get update && \
