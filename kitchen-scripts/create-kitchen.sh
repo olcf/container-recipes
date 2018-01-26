@@ -18,15 +18,40 @@ echo "Please enter your container-recipe gitlab runner registration token: "
 read -sr GITLAB_RUNNER_TOKEN_INPUT
 export GITLAB_RUNNER_TOKEN=${GITLAB_RUNNER_TOKEN_INPUT}
 
-# Token to allow read/write to registry(and any other api call). This is linked to user atj
-echo "Please enter the container-recipe docker registry personal access token for user atj: "
-read -sr GITLAB_REGISTRY_TOKEN_INPUT
-export GITLAB_REGISTRY_TOKEN=${GITLAB_REGISTRY_TOKEN_INPUT}
+# Username to use for admin and read-only gitlab access
+echo "Please enter the gitlab username: "
+read -sr GITLAB_USERNAME_INPUT
+export GITLAB_USERNAME=${GITLAB_USERNAME_INPUT}
 
-# Password to allow read/write to registry(and any other api call). This is linked to user absimpson
-echo "Please enter the dockerhub registry password for user absimpson: "
-read -sr DOCKERHUB_REGISTRY_PASSWORD_INPUT
-export DOCKERHUB_REGISTRY_PASSWORD=${DOCKERHUB_REGISTRY_PASSWORD_INPUT}
+# Token to allow read/write to gitlab registry(and any other api call)
+echo "Please enter the admin gitlab docker registry personal access token: "
+read -sr GITLAB_ADMIN_TOKEN_INPUT
+export GITLAB_ADMIN_TOKEN=${GITLAB_ADMIN_TOKEN_INPUT}
+
+# Token to allow read/write to gitlab registry(and any other api call)
+echo "Please enter the read-only gitlab docker registry personal access token: "
+read -sr GITLAB_READONLY_TOKEN_INPUT
+export GITLAB_READONLY_TOKEN=${GITLAB_READONLY_TOKEN_INPUT}
+
+# Username to use for admin and read-only Dockerhub access
+echo "Please enter the docker admin username: "
+read -sr DOCKERHUB_ADMIN_USERNAME_INPUT
+export DOCKERHUB_ADMIN_USERNAME=${DOCKERHUB_ADMIN_USERNAME_INPUT}
+
+# Username to use for admin and read-only Dockerhub access
+echo "Please enter the docker readonly username: "
+read -sr DOCKERHUB_READONLY_USERNAME_INPUT
+export DOCKERHUB_READONLY_USERNAME=${DOCKERHUB_READONLY_USERNAME_INPUT}
+
+# Token to allow read/write to dockerhub(and any other api call)
+echo "Please enter the admin dockerhub registry personal access token: "
+read -sr DOCKERHUB_ADMIN_TOKEN_INPUT
+export DOCKERHUB_ADMIN_TOKEN=${DOCKERHUB_ADMIN_TOKEN_INPUT}
+
+# Token to allow read/write to registry(and any other api call)
+echo "Please enter the read-only dockerhub registry personal access token: "
+read -sr DOCKERHUB_READONLY_TOKEN_INPUT
+export DOCKERHUB_READONLY_TOKEN=${DOCKERHUB_READONLY_TOKEN_INPUT}
 
 set -o xtrace
 
@@ -74,17 +99,27 @@ ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < $
 echo "Provisioning the kitchen"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/provision-kitchen.sh
 
-echo "Copying gitlab registry credentials"
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/gitlab-registry-token.sh ${GITLAB_REGISTRY_TOKEN}
+echo "Copying gitlab credentials"
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /gitlab-username ${GITLAB_USERNAME}
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /gitlab-admin-token ${GITLAB_ADMIN_TOKEN}
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /gitlab-readonly-token ${GITLAB_READONLY_TOKEN}
 
-echo "Copying dockerhub registry credentials"
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/dockerhub-registry-password.sh ${DOCKERHUB_REGISTRY_PASSWORD}
+echo "Copying dockerhub credentials"
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-admin-username ${DOCKERHUB_ADMIN_USERNAME}
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-readonly-username ${DOCKERHUB_READONLY_USERNAME}
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-admin-token ${DOCKERHUB_ADMIN_TOKEN}
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-readonly-token ${DOCKERHUB_READONLY_TOKEN}
 
 echo "Starting Gitlab runner"
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} "sudo gitlab-runner register --non-interactive --tag-list 'kitchen, container-recipes' --name kitchen-runner --executor shell --url https://code.ornl.gov --registration-token ${GITLAB_RUNNER_TOKEN}"
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} "sudo gitlab-runner register --non-interactive --tag-list 'kitchen, container-recipes, OpenStack' --name kitchen-runner --executor shell --url https://code.ornl.gov --registration-token ${GITLAB_RUNNER_TOKEN}"
 
 echo "Updating qemu-ppc64le binary in rep"
 scp -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP}:/usr/bin/qemu-ppc64le-static ${SCRIPT_DIR}/../summitdev
 git add ${SCRIPT_DIR}/../summitdev/qemu-ppc64le-static
 git commit -m "updating qemu-ppc64le-static"
-git push https://atj:${GITLAB_REGISTRY_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
+git push https://${GITLAB_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
+
+echo "******************************"
+echo "* IMPORTANT                  *"
+echo "******************************"
+echo "The kitchen gitlab runner has been restarted, please unlock it from the current project through the web interface and enable the new runner on container-builder"

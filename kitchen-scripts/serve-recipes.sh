@@ -5,8 +5,10 @@ set -e
 # This script lives one directory below the top level container-recipes directory
 TOP_DIR=$(cd `dirname $0`/.. && pwd)
 
-GITLAB_TOKEN=$(cat /gitlab-registry-token)
-DOCKERHUB_PASSWORD=$(cat /dockerhub-registry-password)
+GITLAB_USERNAME=$(cat /gitlab-username)
+GITLAB_ADMIN_TOKEN=$(cat /gitlab-admin-token)
+DOCKERHUB_ADMIN_USERNAME=$(cat /dockerhub-username)
+DOCKERHUB_ADMIN_TOKEN=$(cat /dockerhub-admin-token)
 
 # System directories in which to look for builds in
 SYSTEMS=(titan summitdev)
@@ -30,12 +32,12 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
 
             # Push to gitlab
             GITLAB_IMAGE="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG}"
-            docker login code.ornl.gov:4567 -u atj -p ${GITLAB_TOKEN}
+            docker login code.ornl.gov:4567 -u ${GITLAB_USERNAME} -p ${GITLAB_ADMIN_TOKEN}
             docker push ${GITLAB_IMAGE}
 
             # Push to dockerhub
             DOCKERHUB_IMAGE="olcf/${SYSTEM}:${DISTRO}_${TAG}"
-            docker login -u absimpson -p ${DOCKERHUB_PASSWORD}
+            docker login -u ${DOCKERHUB_ADMIN_USERNAME} -p ${DOCKERHUB_ADMIN_TOKEN}
             docker push ${DOCKERHUB_IMAGE}
 
             REGISTRY_LIST=${REGISTRY_LIST}"  - ${GITLAB_IMAGE}\n"
@@ -45,12 +47,12 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
 done
 
 # Provide git user information required for commit
-git config --global user.email "atj@ornl.gov"
-git config --global user.name "atj"
+git config --global user.email "${GITLAB_USERNAME}@ornl.gov"
+git config --global user.name ${GITLAB_USERNAME}
 
 # Update registry list markdown
 echo -e "${REGISTRY_LIST}" > ${TOP_DIR}/REGISTRY_LIST.md
 git checkout -B master origin/master
 git add ${TOP_DIR}/REGISTRY_LIST.md
 git diff-index --quiet HEAD || git commit -m "Updating registry list"
-git push https://atj:${GITLAB_TOKEN}@code.ornl.gov/olcf/container-recipes master
+git push https://${GITLAB_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes master
