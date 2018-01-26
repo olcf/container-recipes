@@ -116,7 +116,7 @@ ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} "sudo gitlab-runne
 echo "Updating qemu-ppc64le binary in rep"
 scp -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP}:/usr/bin/qemu-ppc64le-static ${SCRIPT_DIR}/../summitdev
 git add ${SCRIPT_DIR}/../summitdev/qemu-ppc64le-static
-git commit -m "updating qemu-ppc64le-static"
+git diff-index --quiet HEAD || git commit -m "updating qemu-ppc64le-static"
 git push https://${GITLAB_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
 
 echo "******************************"
