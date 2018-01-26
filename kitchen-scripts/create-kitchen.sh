@@ -14,17 +14,17 @@ echo "using OS_CACERT="${OS_CACERT}
 source ${SCRIPT_DIR}/openrc.sh
 
 # Token to tie runner to container-recipes repo
-echo "Please enter your Gitlab runner registration token: "
+echo "Please enter your container-recipe gitlab runner registration token: "
 read -sr GITLAB_RUNNER_TOKEN_INPUT
 export GITLAB_RUNNER_TOKEN=${GITLAB_RUNNER_TOKEN_INPUT}
 
 # Token to allow read/write to registry(and any other api call). This is linked to user atj
-echo "Please enter the container-recipe docker registry personal access token: "
+echo "Please enter the container-recipe docker registry personal access token for user atj: "
 read -sr GITLAB_REGISTRY_TOKEN_INPUT
 export GITLAB_REGISTRY_TOKEN=${GITLAB_REGISTRY_TOKEN_INPUT}
 
 # Password to allow read/write to registry(and any other api call). This is linked to user absimpson
-echo "Please enter the dockerhub registry password: "
+echo "Please enter the dockerhub registry password for user absimpson: "
 read -sr DOCKERHUB_REGISTRY_PASSWORD_INPUT
 export DOCKERHUB_REGISTRY_PASSWORD=${DOCKERHUB_REGISTRY_PASSWORD_INPUT}
 
