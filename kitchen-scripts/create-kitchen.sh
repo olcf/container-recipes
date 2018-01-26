@@ -23,6 +23,11 @@ echo "Please enter the container-recipe docker registry personal access token: "
 read -sr GITLAB_REGISTRY_TOKEN_INPUT
 export GITLAB_REGISTRY_TOKEN=${GITLAB_REGISTRY_TOKEN_INPUT}
 
+# Password to allow read/write to registry(and any other api call). This is linked to user absimpson
+echo "Please enter the dockerhub registry password: "
+read -sr DOCKERHUB_REGISTRY_PASSWORD_INPUT
+export DOCKERHUB_REGISTRY_PASSWORD=${DOCKERHUB_REGISTRY_PASSWORD_INPUT}
+
 set -o xtrace
 
 # Destroy existing ContainerKitchen instance if one exists
@@ -71,6 +76,9 @@ ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < $
 
 echo "Copying gitlab registry credentials"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/gitlab-registry-token.sh ${GITLAB_REGISTRY_TOKEN}
+
+echo "Copying dockerhub registry credentials"
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/dockerhub-registry-password.sh ${DOCKERHUB_REGISTRY_PASSWORD}
 
 echo "Starting Gitlab runner"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} "sudo gitlab-runner register --non-interactive --tag-list 'kitchen, container-recipes' --name kitchen-runner --executor shell --url https://code.ornl.gov --registration-token ${GITLAB_RUNNER_TOKEN}"

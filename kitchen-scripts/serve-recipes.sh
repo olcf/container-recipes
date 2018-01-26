@@ -5,7 +5,8 @@ set -e
 # This script lives one directory below the top level container-recipes directory
 TOP_DIR=$(cd `dirname $0`/.. && pwd)
 
-GIT_TOKEN=$(cat /gitlab-registry-token)
+GITLAB_TOKEN=$(cat /gitlab-registry-token)
+DOCKERHUB_PASSWORD=$(cat /dockerhub-registry-password)
 
 # System directories in which to look for builds in
 SYSTEMS=(titan summitdev)
@@ -26,13 +27,19 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
         for TAG_DIR in $DISTRO_DIR/*/ ; do
             cd ${TAG_DIR}
             TAG=$(basename ${TAG_DIR})
-            FULL_TAG="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG}"
 
-            # There is a finite token lifetime and so we refresh it before every push
-            docker login code.ornl.gov:4567 -u atj -p ${GIT_TOKEN}
-            docker push ${FULL_TAG}
+            # Push to gitlab
+            GITLAB_IMAGE="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG}"
+            docker login code.ornl.gov:4567 -u atj -p ${GITLAB_TOKEN}
+            docker push ${GITLAB_IMAGE}
 
-            REGISTRY_LIST=${REGISTRY_LIST}"  - ${TAG}\n"
+            # Push to dockerhub
+            DOCKERHUB_IMAGE="olcf/${SYSTEM}:${DISTRO}_${TAG}"
+            docker login -u absimpson -p ${DOCKERHUB_PASSWORD}
+            docker push ${DOCKERHUB_IMAGE}
+
+            REGISTRY_LIST=${REGISTRY_LIST}"  - ${GITLAB_IMAGE}\n"
+            REGISTRY_LIST=${REGISTRY_LIST}"  - ${DOCKERHUB_IMAGE}\n"
         done
     done
 done
@@ -46,4 +53,4 @@ echo -e "${REGISTRY_LIST}" > ${TOP_DIR}/REGISTRY_LIST.md
 git checkout -B master origin/master
 git add ${TOP_DIR}/REGISTRY_LIST.md
 git diff-index --quiet HEAD || git commit -m "Updating registry list"
-git push https://atj:${GIT_TOKEN}@code.ornl.gov/olcf/container-recipes master
+git push https://atj:${GITLAB_TOKEN}@code.ornl.gov/olcf/container-recipes master
