@@ -17,30 +17,7 @@ cp /opt/cray/udreg/2.3.2-1.0502.10518.2.17.gem/lib64/*.so*   ./titan_lib
 cp /opt/cray/pmi/5.0.12/lib64/*.so*                          ./titan_lib
 cp /opt/cray/alps/5.2.4-2.0502.9950.37.1.gem/lib64/*.so*     ./titan_lib
 
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libcuda.so.352.101            ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libEGL.so.352.101             ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libGLESv1_CM.so.352.101       ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libGLESv2.so.352.101          ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libGL.so.352.101              ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libglx.so.352.101             ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvcuvid.so.352.101         ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-cfg.so.352.101      ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-compiler.so.352.101 ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-eglcore.so.352.101  ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-encode.so.352.101   ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-fbc.so.352.101      ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-glcore.so.352.101   ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-glsi.so.352.101     ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-ifr.so.352.101      ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-ml.so.352.101       ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-tls.so.352.101      ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-wfb.so.352.101      ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libOpenCL.so.1.0.0            ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libnvidia-opencl.so.352.101   ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/libvdpau_nvidia.so.352.101    ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/nvidia_drv.so                 ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/tls_test_dso.so               ./titan_lib
-cp /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/tls/libnvidia-tls.so.352.101  ./titan_lib
+cp -r /opt/cray/nvidia/352.101-1_1.0502.2465.0.0.gem/lib64/* ./titan_lib
 
 tar -zcvf ./titan_lib.tar.gz ./titan_lib
 rm -rf ./titan_lib
