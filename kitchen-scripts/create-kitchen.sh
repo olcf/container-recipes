@@ -38,18 +38,18 @@ echo "Please enter the docker admin username: "
 read -sr DOCKERHUB_ADMIN_USERNAME_INPUT
 export DOCKERHUB_ADMIN_USERNAME=${DOCKERHUB_ADMIN_USERNAME_INPUT}
 
+# Token to allow read/write to dockerhub(and any other api call)
+echo "Please enter the admin dockerhub password: "
+read -sr DOCKERHUB_ADMIN_TOKEN_INPUT
+export DOCKERHUB_ADMIN_TOKEN=${DOCKERHUB_ADMIN_TOKEN_INPUT}
+
 # Username to use for admin and read-only Dockerhub access
 echo "Please enter the docker readonly username: "
 read -sr DOCKERHUB_READONLY_USERNAME_INPUT
 export DOCKERHUB_READONLY_USERNAME=${DOCKERHUB_READONLY_USERNAME_INPUT}
 
-# Token to allow read/write to dockerhub(and any other api call)
-echo "Please enter the admin dockerhub registry personal access token: "
-read -sr DOCKERHUB_ADMIN_TOKEN_INPUT
-export DOCKERHUB_ADMIN_TOKEN=${DOCKERHUB_ADMIN_TOKEN_INPUT}
-
 # Token to allow read/write to registry(and any other api call)
-echo "Please enter the read-only dockerhub registry personal access token: "
+echo "Please enter the read-only dockerhub password: "
 read -sr DOCKERHUB_READONLY_TOKEN_INPUT
 export DOCKERHUB_READONLY_TOKEN=${DOCKERHUB_READONLY_TOKEN_INPUT}
 
