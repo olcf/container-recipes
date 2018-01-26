@@ -7,7 +7,7 @@ TOP_DIR=$(cd `dirname $0`/.. && pwd)
 
 GITLAB_USERNAME=$(cat /gitlab-username)
 GITLAB_ADMIN_TOKEN=$(cat /gitlab-admin-token)
-DOCKERHUB_ADMIN_USERNAME=$(cat /dockerhub-username)
+DOCKERHUB_ADMIN_USERNAME=$(cat /dockerhub-admin-username)
 DOCKERHUB_ADMIN_TOKEN=$(cat /dockerhub-admin-token)
 
 # System directories in which to look for builds in
