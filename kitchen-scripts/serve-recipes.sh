@@ -10,40 +10,20 @@ GITLAB_ADMIN_TOKEN=$(cat /gitlab-admin-token)
 DOCKERHUB_ADMIN_USERNAME=$(cat /dockerhub-admin-username)
 DOCKERHUB_ADMIN_TOKEN=$(cat /dockerhub-admin-token)
 
-# System directories in which to look for builds in
-SYSTEMS=(titan summitdev)
-
 # A string containing all of the tags which is prepended to the README to allow the mirror to show what images are available
 # This string is built up as the directory tree is traversed and containers are pushed to the registry
 REGISTRY_LIST="# Images\n"
 
-# Loop through directory struction container-recipes/{SYSTEM}/{DISTRO}/{TAG} and build docker image
-for SYSTEM in "${SYSTEMS[@]}" ; do
-    SYSTEM_DIR=${TOP_DIR}/${SYSTEM}
-    REGISTRY_LIST=${REGISTRY_LIST}"\n## ${SYSTEM}\n"
+# Login to dockerhub and gitlab
+docker login code.ornl.gov:4567 -u ${GITLAB_USERNAME} -p ${GITLAB_ADMIN_TOKEN}
+docker login -u ${DOCKERHUB_ADMIN_USERNAME} -p ${DOCKERHUB_ADMIN_TOKEN}
 
-    for DISTRO_DIR in $SYSTEM_DIR/*/ ; do
-        DISTRO=$(basename ${DISTRO_DIR})
-        REGISTRY_LIST=${REGISTRY_LIST}"- ${DISTRO}\n"
+# Push all images to gitlab and dockerhub
+for IMAGE in $(docker images --filter "label=OLCF" --format "{{.Repository}}:{{.Tag}}") ; do
+    echo pushing $IMAGE
 
-        for TAG_DIR in $DISTRO_DIR/*/ ; do
-            cd ${TAG_DIR}
-            TAG=$(basename ${TAG_DIR})
-
-            # Push to gitlab
-            GITLAB_IMAGE="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}/${DISTRO}:${TAG}"
-            docker login code.ornl.gov:4567 -u ${GITLAB_USERNAME} -p ${GITLAB_ADMIN_TOKEN}
-            docker push ${GITLAB_IMAGE}
-
-            # Push to dockerhub
-            DOCKERHUB_IMAGE="olcf/${SYSTEM}:${DISTRO}_${TAG}"
-            docker login -u ${DOCKERHUB_ADMIN_USERNAME} -p ${DOCKERHUB_ADMIN_TOKEN}
-            docker push ${DOCKERHUB_IMAGE}
-
-            REGISTRY_LIST=${REGISTRY_LIST}"  - ${GITLAB_IMAGE}\n"
-            REGISTRY_LIST=${REGISTRY_LIST}"  - ${DOCKERHUB_IMAGE}\n"
-        done
-    done
+    docker push $IMAGE
+    REGISTRY_LIST=${REGISTRY_LIST}"  - ${GITLAB_IMAGE}\n"
 done
 
 # Provide git user information required for commit
