@@ -23,7 +23,7 @@ for IMAGE in $(docker images --filter "label=OLCF" --format "{{.Repository}}:{{.
     echo pushing $IMAGE
 
     docker push $IMAGE
-    REGISTRY_LIST=${REGISTRY_LIST}"  - ${GITLAB_IMAGE}\n"
+    REGISTRY_LIST=${REGISTRY_LIST}"  - ${IMAGE}\n"
 done
 
 # Provide git user information required for commit
