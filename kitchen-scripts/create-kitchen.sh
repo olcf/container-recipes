@@ -119,6 +119,8 @@ git add ${SCRIPT_DIR}/../summitdev/qemu-ppc64le-static
 git diff-index --quiet HEAD || git commit -m "updating qemu-ppc64le-static"
 git push https://${GITLAB_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
 
+unset -o xtrace
+
 echo "******************************"
 echo "* IMPORTANT                  *"
 echo "******************************"
