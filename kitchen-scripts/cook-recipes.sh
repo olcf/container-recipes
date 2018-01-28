@@ -11,9 +11,9 @@ SYSTEMS=(titan summitdev)
 # Loop through directory structure container-recipes/{SYSTEM}/{DISTRO}_{TAG} and build image
 for SYSTEM in "${SYSTEMS[@]}" ; do
     SYSTEM_DIR=${TOP_DIR}/${SYSTEM}
-    for DISTRO_DIR in $SYSTEM_DIR/*/ ; do
+    for DISTRO_DIR in ${SYSTEM_DIR}/*/ ; do
         DISTRO=$(basename ${DISTRO_DIR})
-        for VERSION_DIR in $DISTRO_DIR/*/ ; do
+        for VERSION_DIR in ${DISTRO_DIR}/*/ ; do
             cd ${VERSION_DIR}
             VERSION=$(basename ${VERSION_DIR})
             TAG="${DISTRO}_${VERSION}"

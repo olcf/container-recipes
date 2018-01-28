@@ -20,9 +20,9 @@ docker login -u ${DOCKERHUB_ADMIN_USERNAME} -p ${DOCKERHUB_ADMIN_TOKEN}
 
 # Push all images to gitlab and dockerhub
 for IMAGE in $(docker images --filter "label=OLCF" --format "{{.Repository}}:{{.Tag}}") ; do
-    echo pushing $IMAGE
+    echo pushing ${IMAGE}
 
-    docker push $IMAGE
+    docker push ${IMAGE}
     REGISTRY_LIST=${REGISTRY_LIST}"  - ${IMAGE}\n"
 done
 
