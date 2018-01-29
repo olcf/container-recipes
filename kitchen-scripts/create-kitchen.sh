@@ -110,6 +110,20 @@ ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < $
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-admin-token ${DOCKERHUB_ADMIN_TOKEN}
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-readonly-token ${DOCKERHUB_READONLY_TOKEN}
 
+echo "Set environment for gitlab-runner"
+# Collect all OpenStack credentials
+unset OS_CACERT
+printenv | grep ^OS_ > ./runer_profile
+# Collect all Gitlab credentials
+printenv | grep ^GITLAB_ >> ./runner_profile
+# Collect all Dockerhub credentials
+printenv | grep ^DOCKERHUB_ >> ./runner_profile
+# prefix variables with "export"
+awk '{print "export "$0}' ./runner_profile > tmp_awk && mv tmp_awk ./runner_profile
+# Copy to the runner users .profile
+scp -o StrictHostKeyChecking=no -i ${KEY_FILE} ./runner_profile cades@${VM_IP}:/home/cades/runner_profile
+ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo mv /home/cades/runner_profile /home/gitlab-runner/.profile'
+
 echo "Starting Gitlab runner"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} "sudo gitlab-runner register --non-interactive --tag-list 'kitchen, container-recipes, OpenStack' --name kitchen-runner --executor shell --url https://code.ornl.gov --registration-token ${GITLAB_RUNNER_TOKEN}"
 
