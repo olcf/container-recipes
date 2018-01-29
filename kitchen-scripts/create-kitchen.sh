@@ -102,7 +102,7 @@ ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < $
 echo "Set environment for gitlab-runner"
 # Collect all OpenStack credentials
 unset OS_CACERT
-printenv | grep ^OS_ > ./runer_profile
+printenv | grep ^OS_ > ./runner_profile
 # Collect all Gitlab credentials
 printenv | grep ^GITLAB_ >> ./runner_profile
 # Collect all Dockerhub credentials
