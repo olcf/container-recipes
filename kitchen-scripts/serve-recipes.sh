@@ -5,11 +5,6 @@ set -e
 # This script lives one directory below the top level container-recipes directory
 TOP_DIR=$(cd `dirname $0`/.. && pwd)
 
-GITLAB_USERNAME=$(cat /gitlab-username)
-GITLAB_ADMIN_TOKEN=$(cat /gitlab-admin-token)
-DOCKERHUB_ADMIN_USERNAME=$(cat /dockerhub-admin-username)
-DOCKERHUB_ADMIN_TOKEN=$(cat /dockerhub-admin-token)
-
 # A string containing all of the tags which is prepended to the README to allow the mirror to show what images are available
 # This string is built up as the directory tree is traversed and containers are pushed to the registry
 REGISTRY_LIST="# Images\n"

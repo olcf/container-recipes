@@ -99,17 +99,6 @@ ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < $
 echo "Provisioning the kitchen"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/provision-kitchen.sh
 
-echo "Copying gitlab credentials"
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /gitlab-username ${GITLAB_USERNAME}
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /gitlab-admin-token ${GITLAB_ADMIN_TOKEN}
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /gitlab-readonly-token ${GITLAB_READONLY_TOKEN}
-
-echo "Copying dockerhub credentials"
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-admin-username ${DOCKERHUB_ADMIN_USERNAME}
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-readonly-username ${DOCKERHUB_READONLY_USERNAME}
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-admin-token ${DOCKERHUB_ADMIN_TOKEN}
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/write-to-file.sh /dockerhub-readonly-token ${DOCKERHUB_READONLY_TOKEN}
-
 echo "Set environment for gitlab-runner"
 # Collect all OpenStack credentials
 unset OS_CACERT
