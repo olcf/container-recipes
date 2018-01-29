@@ -21,37 +21,12 @@ export GITLAB_RUNNER_TOKEN=${GITLAB_RUNNER_TOKEN_INPUT}
 # Username to use for admin and read-only gitlab access
 echo "Please enter the gitlab username: "
 read -sr GITLAB_USERNAME_INPUT
-export GITLAB_USERNAME=${GITLAB_USERNAME_INPUT}
+export GITLAB_ADMIN_USERNAME=${GITLAB_USERNAME_INPUT}
 
 # Token to allow read/write to gitlab registry(and any other api call)
 echo "Please enter the admin gitlab docker registry personal access token: "
 read -sr GITLAB_ADMIN_TOKEN_INPUT
 export GITLAB_ADMIN_TOKEN=${GITLAB_ADMIN_TOKEN_INPUT}
-
-# Token to allow read/write to gitlab registry(and any other api call)
-echo "Please enter the read-only gitlab docker registry personal access token: "
-read -sr GITLAB_READONLY_TOKEN_INPUT
-export GITLAB_READONLY_TOKEN=${GITLAB_READONLY_TOKEN_INPUT}
-
-# Username to use for admin and read-only Dockerhub access
-echo "Please enter the docker admin username: "
-read -sr DOCKERHUB_ADMIN_USERNAME_INPUT
-export DOCKERHUB_ADMIN_USERNAME=${DOCKERHUB_ADMIN_USERNAME_INPUT}
-
-# Token to allow read/write to dockerhub(and any other api call)
-echo "Please enter the admin dockerhub password: "
-read -sr DOCKERHUB_ADMIN_TOKEN_INPUT
-export DOCKERHUB_ADMIN_TOKEN=${DOCKERHUB_ADMIN_TOKEN_INPUT}
-
-# Username to use for admin and read-only Dockerhub access
-echo "Please enter the docker readonly username: "
-read -sr DOCKERHUB_READONLY_USERNAME_INPUT
-export DOCKERHUB_READONLY_USERNAME=${DOCKERHUB_READONLY_USERNAME_INPUT}
-
-# Token to allow read/write to registry(and any other api call)
-echo "Please enter the read-only dockerhub password: "
-read -sr DOCKERHUB_READONLY_TOKEN_INPUT
-export DOCKERHUB_READONLY_TOKEN=${DOCKERHUB_READONLY_TOKEN_INPUT}
 
 set -x
 
@@ -99,20 +74,6 @@ ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < $
 echo "Provisioning the kitchen"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo bash -s' < ${SCRIPT_DIR}/provision-kitchen.sh
 
-echo "Set environment for gitlab-runner"
-# Collect all OpenStack credentials
-unset OS_CACERT
-printenv | grep ^OS_ > ./runner_profile
-# Collect all Gitlab credentials
-printenv | grep ^GITLAB_ >> ./runner_profile
-# Collect all Dockerhub credentials
-printenv | grep ^DOCKERHUB_ >> ./runner_profile
-# prefix variables with "export"
-awk '{print "export "$0}' ./runner_profile > tmp_awk && mv tmp_awk ./runner_profile
-# Copy to the runner users .profile
-scp -o StrictHostKeyChecking=no -i ${KEY_FILE} ./runner_profile cades@${VM_IP}:/home/cades/runner_profile
-ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} 'sudo mv /home/cades/runner_profile /home/gitlab-runner/.profile'
-
 echo "Starting Gitlab runner"
 ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP} "sudo gitlab-runner register --non-interactive --tag-list 'kitchen, container-recipes, OpenStack' --name kitchen-runner --executor shell --url https://code.ornl.gov --registration-token ${GITLAB_RUNNER_TOKEN}"
 
@@ -120,7 +81,7 @@ echo "Updating qemu-ppc64le binary in rep"
 scp -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP}:/usr/bin/qemu-ppc64le-static ${SCRIPT_DIR}/../summitdev
 git add ${SCRIPT_DIR}/../summitdev/qemu-ppc64le-static
 git diff-index --quiet HEAD || git commit -m "updating qemu-ppc64le-static"
-git push https://${GITLAB_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
+git push https://${GITLAB_ADMIN_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
 
 set +x
 
