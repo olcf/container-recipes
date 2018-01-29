@@ -53,7 +53,7 @@ echo "Please enter the read-only dockerhub password: "
 read -sr DOCKERHUB_READONLY_TOKEN_INPUT
 export DOCKERHUB_READONLY_TOKEN=${DOCKERHUB_READONLY_TOKEN_INPUT}
 
-set -o xtrace
+set -x
 
 # Destroy existing ContainerKitchen instance if one exists
 ./destroy-kitchen.sh --no_login
@@ -122,7 +122,7 @@ git add ${SCRIPT_DIR}/../summitdev/qemu-ppc64le-static
 git diff-index --quiet HEAD || git commit -m "updating qemu-ppc64le-static"
 git push https://${GITLAB_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
 
-unset -o xtrace
+set +x
 
 echo "******************************"
 echo "* IMPORTANT                  *"
