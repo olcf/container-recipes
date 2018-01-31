@@ -7,7 +7,7 @@ ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/titan_lib:/usr/local/cuda/lib:/usr/loc
 ENV PATH=${PATH:-}:/usr/local/cuda/bin
 
 RUN apt-get update && \
-    apt-get install -y software-properties-common wget pkg-config  gcc-4.9 g++-4.9 mpich patchelf && \
+    apt-get install -y software-properties-common wget pkg-config  gcc-4.9 g++-4.9 mpich patchelf libhugetlbfs && \
     rm -rf /var/lib/apt/lists/*
 
 RUN wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run && \
