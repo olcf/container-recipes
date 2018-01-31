@@ -30,3 +30,6 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
         done
     done
 done
+
+# Clean up images that aren't needed.
+docker sytsem prune -f
