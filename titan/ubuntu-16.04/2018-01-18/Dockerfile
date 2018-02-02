@@ -32,3 +32,10 @@ RUN cp /titan_lib/libmpich_gnu_49.so.3.0.1 /usr/lib/x86_64-linux-gnu/libmpich.so
     cp /titan_lib/libmpichcxx_gnu_49.so.3.0.1 /usr/lib/x86_64-linux-gnu/libmpichcxx.so.12.1.0 && \
     cp /titan_lib/libfmpich_gnu_49.so.3.0.1 /usr/lib/x86_64-linux-gnu/libmpichfort.so.12.1.0  && \
     rm /usr/lib/x86_64-linux-gnu/libmpich.a /usr/lib/x86_64-linux-gnu/libmpichcxx.a /usr/lib/x86_64-linux-gnu/libmpichfort.a
+
+RUN wget https://github.com/AdamSimpson/set_pid/archive/0.1.tar.gz && \
+    tar xf set_pid-0.1.tar.gz && \
+    cd set_pid-0.1 && \
+    mkdir build && cd build && \
+    cmake -DCMAKE_BUILD_TYPE=Release .. && \
+    make && make install

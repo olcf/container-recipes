@@ -39,3 +39,10 @@ RUN cp /titan_lib/libmpich_gnu_49.so.3.0.1 /usr/lib64/mpich/lib/libmpich.so.10.0
     cp /titan_lib/libmpichcxx_gnu_49.so.3.0.1 /usr/lib64/mpich/lib/libmpichcxx.so.10.0.4 && \
     cp /titan_lib/libfmpich_gnu_49.so.3.0.1 /usr/lib64/mpich/lib/libmpichf90.so.10.0.4 && \
     cp /titan_lib/libfmpich_gnu_49.so.3.0.1 /usr/lib64/mpich/lib/libfmpich.so.10.0.4
+
+RUN wget https://github.com/AdamSimpson/set_pid/archive/0.1.tar.gz && \
+    tar xf set_pid-0.1.tar.gz && \
+    cd set_pid-0.1 && \
+    mkdir build && cd build && \
+    cmake -DCMAKE_BUILD_TYPE=Release .. && \
+    make && make install
