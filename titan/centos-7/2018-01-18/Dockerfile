@@ -8,7 +8,7 @@ ENV PATH=${PATH:-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin
 
 RUN yum -y update && \
     yum -y install epel-release && \
-    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel glibc-static libstdc++-static numactl libhugetlbfs && \
+    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel glibc-static cmake libstdc++-static numactl libhugetlbfs && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
