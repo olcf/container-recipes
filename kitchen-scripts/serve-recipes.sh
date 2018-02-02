@@ -26,8 +26,8 @@ git config --global user.email "${GITLAB_ADMIN_USERNAME}@ornl.gov"
 git config --global user.name ${GITLAB_ADMIN_USERNAME}
 
 # Update registry list markdown
-echo -e "${REGISTRY_LIST}" > ${TOP_DIR}/REGISTRY_LIST.md
 git checkout -B master origin/master
+echo -e "${REGISTRY_LIST}" > ${TOP_DIR}/REGISTRY_LIST.md
 git add ${TOP_DIR}/REGISTRY_LIST.md
-git diff-index --quiet HEAD || git commit -m "Updating registry list"
-git push https://${GITLAB_ADMIN_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes master
+git commit -m "Updating registry list" || true
+git push https://${GITLAB_ADMIN_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes master || true

@@ -24,7 +24,7 @@ read -sr GITLAB_USERNAME_INPUT
 export GITLAB_ADMIN_USERNAME=${GITLAB_USERNAME_INPUT}
 
 # Token to allow read/write to gitlab registry(and any other api call)
-echo "Please enter the admin gitlab docker registry personal access token: "
+echo "Please enter your gitlab password: "
 read -sr GITLAB_ADMIN_TOKEN_INPUT
 export GITLAB_ADMIN_TOKEN=${GITLAB_ADMIN_TOKEN_INPUT}
 
