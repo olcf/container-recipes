@@ -6,7 +6,7 @@ set -e
 TOP_DIR=$(cd `dirname $0`/.. && pwd)
 
 # System directories in which to look for builds in
-SYSTEMS=(titan summitdev)
+SYSTEMS=(titan summit summitdev)
 
 # Loop through directory structure container-recipes/{SYSTEM}/{DISTRO}_{TAG} and build image
 for SYSTEM in "${SYSTEMS[@]}" ; do
