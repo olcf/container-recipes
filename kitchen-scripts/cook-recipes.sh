@@ -21,7 +21,7 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
             DOCKER_NAME="olcf/${SYSTEM}"
 
             # Copy QEMU binary to build directory if we're building for a power system
-            if [ "${SYSTEM}" == "summitdev" ]; then
+            if [ "${SYSTEM}" == "summitdev" ] || [ "${SYSTEM}" == "summit" ]; then
                 cp ../../qemu-ppc64le-static .
             fi
 
