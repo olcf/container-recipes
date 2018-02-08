@@ -16,10 +16,10 @@ RUN cd / && \
     tar -xf /summit_rpm.tar.gz && \
     rm /summit_rpm.tar.gz && \
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
-    yum -y --nogpgcheck localinstall summit_rpm/ibm_smpi-10.02.00.00prpq-rh7_20171117.ppc64le.rpm && \
-                                     summit_rpm/ibm_smpi-pami_devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm && \
-                                     summit_rpm/ibm_smpi_lic_s-10.02.00dev0-rh7_20171107.ppc64le.rpm && \
-                                     summit_rpm/ibm_smpi-devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm && \
+    yum -y --nogpgcheck localinstall /summit_rpm/ibm_smpi_lic_s-10.02.00dev0-rh7_20171107.ppc64le.rpm && \
+                                     /summit_rpm/ibm_smpi-10.02.00.00prpq-rh7_20171117.ppc64le.rpm && \
+                                     /summit_rpm/ibm_smpi-pami_devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm && \
+                                     /summit_rpm/ibm_smpi-devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm && \
     rm -rf /summit_rpm
 
 RUN export PERL5LIB=. && \
