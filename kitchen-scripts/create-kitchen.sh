@@ -83,6 +83,11 @@ git add ${SCRIPT_DIR}/../summitdev/qemu-ppc64le-static
 git diff-index --quiet HEAD || git commit -m "updating qemu-ppc64le-static"
 git push https://${GITLAB_ADMIN_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
 
+scp -o StrictHostKeyChecking=no -i ${KEY_FILE} cades@${VM_IP}:/usr/bin/qemu-ppc64le-static ${SCRIPT_DIR}/../summit
+git add ${SCRIPT_DIR}/../summit/qemu-ppc64le-static
+git diff-index --quiet HEAD || git commit -m "updating qemu-ppc64le-static"
+git push https://${GITLAB_ADMIN_USERNAME}:${GITLAB_ADMIN_TOKEN}@code.ornl.gov/olcf/container-recipes.git --all
+
 set +x
 
 echo "******************************"
