@@ -4,11 +4,11 @@ COPY qemu-ppc64le-static /usr/bin/qemu-ppc64le-static
 COPY summit_rpm.tar.gz /summit_rpm.tar.gz
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib
-ENV PATH=${PATH:-}:/usr/local/cuda/bin:/usr/lib64/mpich/bin:/opt/ibm/spectrum_mpi/bin
+ENV PATH=${PATH:-}:/usr/local/cuda/bin:/opt/ibm/spectrum_mpi/bin
 
 RUN yum -y update && \
     yum -y install epel-release && \
-    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb mpich mpich-devel glibc-static libstdc++-static numactl && \
+    yum -y install wget gcc-c++ gcc-gfortran redhat-lsb glibc-static libstdc++-static numactl && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
