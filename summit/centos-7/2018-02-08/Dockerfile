@@ -3,8 +3,17 @@ FROM ppc64le/centos:7
 COPY qemu-ppc64le-static /usr/bin/qemu-ppc64le-static
 COPY summit_rpm.tar.gz /summit_rpm.tar.gz
 
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib
-ENV PATH=${PATH:-}:/usr/local/cuda/bin:/opt/ibm/spectrum_mpi/bin
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib:/opt/ibm/spectrum_mpi/lib/spectrum_mpi:/opt/ibm/spectrum_mpi/jsm_pmix/lib
+ENV PATH=${PATH:-}:/usr/local/cuda/bin:/opt/ibm/spectrum_mpi/bin:/opt/ibm/spectrum_mpi/jsm_pmix/bin
+ENV OMPI_DIR=/opt/ibm/spectrum_mpi
+ENV MPI_ROOT=/opt/ibm/spectrum_mpi
+ENV OPAL_PREFIX=/opt/ibm/spectrum_mpi
+ENV OPAL_LIBDIR=/opt/ibm/spectrum_mpi/lib
+ENV OMPI_CC=gcc
+ENV OMPI_CXX=g++
+ENV OMPI_FC=gfortran
+ENV PAMI_IBV_ENABLE_DCT=1
+ENV PAMI_ENABLE_STRIPING=0
 
 RUN yum -y update && \
     yum -y install epel-release && \
