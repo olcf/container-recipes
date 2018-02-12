@@ -36,7 +36,7 @@ RUN cd / && \
                       --without-mlnxofed-docs --without-mpitests_openmpi --without-mpi-selector --without-ibsim \
                       --without-infiniband-diags --without-infiniband-diags-compat --without-perftest --without-mstflint \
                       --without-mft && \
-    cd / &&
+    cd / && \
     rm -rf /summit_rpm/mellanox && \
     yum -y clean all && \
     rm -rf /var/cache/yum
