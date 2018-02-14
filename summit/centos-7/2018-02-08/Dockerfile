@@ -18,7 +18,7 @@ ENV PAMI_ENABLE_STRIPING=0
 RUN yum -y update && \
     yum -y install epel-release && \
     yum -y install wget gcc-c++ gcc-gfortran redhat-lsb glibc-static libstdc++-static numactl \
-                   perl numactl-libs tcsh libnl tcl && \
+                   perl numactl-libs tcsh libnl tcl tk && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
