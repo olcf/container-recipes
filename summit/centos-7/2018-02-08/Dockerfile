@@ -28,8 +28,7 @@ RUN cd / && \
     cd /summit_rpm/mellanox && \
     ./mlnxofedinstall -vvv --force --all --user-space-only --distro rhel7.4alternate --without-fw-update --without-openmpi \
                       --without-mlnxofed-docs --without-mpitests_openmpi --without-mpi-selector --without-ibsim \
-                      --without-infiniband-diags --without-infiniband-diags-compat --without-perftest --without-mstflint \
-                      --without-mft && \
+                      --without-infiniband-diags-compat --without-opensm --without-perftest --without-mstflint --without-mft && \
     cd /summit_rpm && \
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
     yum -y --nogpgcheck localinstall /summit_rpm/ibm_smpi_lic_s-10.02.00dev0-rh7_20171107.ppc64le.rpm \
