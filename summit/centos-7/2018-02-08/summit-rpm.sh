@@ -3,10 +3,7 @@
 mkdir ./summit_rpm
 
 # Spectrum MPI
-cp /ccs/packages/IBM/PRPQ-4Q17-Update/smpi/ibm_smpi-10.02.00.00prpq-rh7_20171117.ppc64le.rpm            ./summit_rpm
-cp /ccs/packages/IBM/PRPQ-4Q17-Update/smpi/ibm_smpi-pami_devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm ./summit_rpm
-cp /ccs/packages/IBM/PRPQ-4Q17-Update/smpi/ibm_smpi_lic_s-10.02.00dev0-rh7_20171107.ppc64le.rpm         ./summit_rpm
-cp /ccs/packages/IBM/PRPQ-4Q17-Update/smpi/ibm_smpi-devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm      ./summit_rpm
+cp /ccs/packages/IBM/02-2018/SMPI/ibm_smpi-10.2.0.0-20180110-rh7.ppc64le.tar.gz ./summit_rpm
 
 # Mellanox OFED - directory created by mounting MLNX_OFED_LINUX-4.1-4.1.5.2-rhel7.4alternate-ppc64le.iso
 cp -r /ccs/packages/IBM/PRPQ-4Q17/mellanox ./summit_rpm

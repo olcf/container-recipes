@@ -3,7 +3,8 @@ FROM ppc64le/centos:7
 COPY qemu-ppc64le-static /usr/bin/qemu-ppc64le-static
 COPY summit_rpm.tar.gz /summit_rpm.tar.gz
 
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib:/opt/ibm/spectrum_mpi/lib/spectrum_mpi:/opt/ibm/spectrum_mpi/jsm_pmix/lib
+# /opt/mellanox/hcoll/lib shouldn't be needed but the RPM doesn't currently appear to have /etc/ld.so.conf.d/hcoll.conf like it should
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib:/opt/ibm/spectrum_mpi/lib/spectrum_mpi:/opt/ibm/spectrum_mpi/jsm_pmix/lib:/opt/mellanox/hcoll/lib
 ENV PATH=${PATH:-}:/usr/local/cuda/bin:/opt/ibm/spectrum_mpi/bin:/opt/ibm/spectrum_mpi/jsm_pmix/bin
 ENV OMPI_DIR=/opt/ibm/spectrum_mpi
 ENV MPI_ROOT=/opt/ibm/spectrum_mpi
@@ -31,10 +32,8 @@ RUN cd / && \
                       --without-infiniband-diags-compat --without-opensm --without-perftest --without-mstflint --without-mft && \
     cd /summit_rpm && \
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
-    yum -y --nogpgcheck localinstall /summit_rpm/ibm_smpi_lic_s-10.02.00dev0-rh7_20171107.ppc64le.rpm \
-                                     /summit_rpm/ibm_smpi-10.02.00.00prpq-rh7_20171117.ppc64le.rpm \
-                                     /summit_rpm/ibm_smpi-pami_devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm \
-                                     /summit_rpm/ibm_smpi-devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm && \
+    tar -xf /summit_rpm/ibm_smpi-10.2.0.0-20180110-rh7.ppc64le.tar.gz
+    yum -y --nogpgcheck localinstall /summit_rpm/ibm_smpi_*.rpm  && \
     rm -rf /summit_rpm* && \
     yum -y clean all && \
     rm -rf /var/cache/yum
