@@ -25,19 +25,18 @@ RUN yum -y update && \
 # Install Spectrum MPI and Mellanox OFED
 RUN cd / && \
     tar -xf /summit_rpm.tar.gz && \
-    rm /summit_rpm.tar.gz && \
+    cd /summit_rpm/mellanox && \
+    ./mlnxofedinstall -vvv --all --user-space-only --distro rhel7.4alternate --without-fw-update --without-openmpi \
+                      --without-mlnxofed-docs --without-mpitests_openmpi --without-mpi-selector --without-ibsim \
+                      --without-infiniband-diags --without-infiniband-diags-compat --without-perftest --without-mstflint \
+                      --without-mft && \
+    cd /summit_rpm && \
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
     yum -y --nogpgcheck localinstall /summit_rpm/ibm_smpi_lic_s-10.02.00dev0-rh7_20171107.ppc64le.rpm \
                                      /summit_rpm/ibm_smpi-10.02.00.00prpq-rh7_20171117.ppc64le.rpm \
                                      /summit_rpm/ibm_smpi-pami_devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm \
                                      /summit_rpm/ibm_smpi-devel-10.02.00.00prpq-rh7_20171117.ppc64le.rpm && \
-    cd /summit_rpm/mellanox && \
-    ./mlnxofedinstall -p --all --user-space-only -q --distro rhel7.4alternate --without-fw-update --without-openmpi \
-                      --without-mlnxofed-docs --without-mpitests_openmpi --without-mpi-selector --without-ibsim \
-                      --without-infiniband-diags --without-infiniband-diags-compat --without-perftest --without-mstflint \
-                      --without-mft && \
-    cd / && \
-    rm -rf /summit_rpm/mellanox && \
+    rm -rf /summit_rpm* && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
