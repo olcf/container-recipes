@@ -10,6 +10,10 @@ cp /ccs/packages/IBM/02-2018/SMPI/ibm_smpi-10.2.0.0-20180110-rh7.ppc64le.tar.gz 
 cd ${TOP_DIR}/summit-packages/smpi
 tar -xf ibm_smpi-10.2.0.0-20180110-rh7.ppc64le.tar.gz
 
+# CSM
+mkdir ${TOP_DIR}/summit-packages/csm
+cp /ccs/packages/IBM/PRPQ-4Q17-Update2/csm/ibm-csm-core-0.3.2-7694_prpq.ppc64le.rpm​ ${TOP_DIR}/summit-packages/csm
+
 # Mellanox OFED - directory created by mounting MLNX_OFED_LINUX-4.1-4.1.5.2-rhel7.4alternate-ppc64le.iso
 cp -r /ccs/packages/IBM/PRPQ-4Q17/mellanox ${TOP_DIR}/summit-packages
 # Remove large OFED packages that aren't required
