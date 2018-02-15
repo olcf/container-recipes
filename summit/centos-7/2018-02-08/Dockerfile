@@ -33,10 +33,10 @@ RUN cd / && \
                       --without-mlnxofed-docs --without-mpitests_openmpi --without-mpi-selector --without-ibsim \
                       --without-infiniband-diags-compat --without-opensm --without-perftest --without-mstflint --without-mft && \
     cd /summit_rpm/smpi && \
-    tar -xf ibm_smpi-10.2.0.0-20180110-rh7.ppc64le.tar.gz
+    tar -xf ibm_smpi-10.2.0.0-20180110-rh7.ppc64le.tar.gz && \
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
     yum -y --nogpgcheck localinstall *.rpm  && \
-    cd /
+    cd / && \
     rm -rf /summit_rpm && \
     yum -y clean all && \
     rm -rf /var/cache/yum
