@@ -32,13 +32,12 @@ RUN cd / && \
     ./mlnxofedinstall -vvv --force --all --user-space-only --distro rhel7.4alternate --without-fw-update --without-openmpi \
                       --without-mlnxofed-docs --without-mpitests_openmpi --without-mpi-selector --without-ibsim \
                       --without-infiniband-diags-compat --without-opensm --without-perftest --without-mstflint --without-mft && \
-    cd /summit_rpm && \
-    cd smpi && \
+    cd /summit_rpm/smpi && \
     tar -xf ibm_smpi-10.2.0.0-20180110-rh7.ppc64le.tar.gz
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
-    tar -xf /summit_rpm/ibm_smpi-10.2.0.0-20180110-rh7.ppc64le.tar.gz
-    yum -y --nogpgcheck localinstall /summit_rpm/ibm_smpi_*.rpm  && \
-    rm -rf /summit_rpm* && \
+    yum -y --nogpgcheck localinstall *.rpm  && \
+    cd /
+    rm -rf /summit_rpm && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
