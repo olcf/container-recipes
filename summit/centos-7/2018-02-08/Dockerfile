@@ -37,8 +37,8 @@ RUN cd / && \
     cd /summit-packages/smpi && \
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
     yum -y --nogpgcheck localinstall *.rpm  && \
-    cd /summit-packages/csm && \
-    yum -y --nogpgcheck localinstall *.rpm  && \
+#    cd /summit-packages/csm && \
+#    yum -y --nogpgcheck localinstall *.rpm  && \
     cd / && \
     rm -rf /summit-packages && \
     yum -y clean all && \
