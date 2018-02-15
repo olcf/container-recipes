@@ -15,8 +15,10 @@ rm ./summit_rpm/mellanox/RPMS/mlnx-fw-updater-4.1-4.1.5.2.ppc64le.rpm
 rm ./summit_rpm/mellanox/RPMS/openmpi-2.1.2a1-1.41102.ppc64le.rpm
 rm ./summit_rpm/mellanox/RPMS/mlnx-ofa_kernel-devel-4.1-OFED.4.1.4.1.5.1.g773619a.rhel7u4alternate.ppc64le.rpm
 
-tar -zcvf ./summit_rpm/mellanox.tar.gz ./summit_rpm/mellanox
-rm -rf ./summit_rpm/mellanox
+cd ./summit_rpm
+tar -zcvf mellanox.tar.gz mellanox
+rm -rf ./mellanox
 
+cd ..
 tar -zcvf ./summit_rpm.tar.gz ./summit_rpm
 rm -rf ./summit_rpm
