@@ -3,7 +3,7 @@ FROM ppc64le/centos:7
 COPY qemu-ppc64le-static /usr/bin/qemu-ppc64le-static
 COPY summit-packages.tar.gz /summit-packages.tar.gz
 
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib:/opt/ibm/spectrum_mpi/lib/spectrum_mpi:/opt/ibm/csm/lib
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib:/opt/ibm/spectrum_mpi/lib/spectrum_mpi
 ENV PATH=${PATH:-}:/usr/local/cuda/bin:/opt/ibm/spectrum_mpi/bin:/opt/ibm/spectrum_mpi/jsm_pmix/bin
 ENV OMPI_DIR=/opt/ibm/spectrum_mpi
 ENV MPI_ROOT=/opt/ibm/spectrum_mpi
@@ -14,11 +14,6 @@ ENV OMPI_CXX=g++
 ENV OMPI_FC=gfortran
 ENV PAMI_IBV_ENABLE_DCT=1
 ENV PAMI_ENABLE_STRIPING=0
-
-# jsrun modifies the LD_LIBRARY_PATH and LD_PRELOAD, which are blown away by singularity due to setuid security concerns
-# Additionally /etc/ld.so.conf.d/hcoll.conf and /etc/ld.so.conf.d/jsm.conf are missing for some reason in the container install and so their entries are manually added to LD_LIBRARY_PATH
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/opt/ibm/spectrum_mpi/jsm_pmix/lib:/opt/ibm/spectrum_mpi/lib/pami_port:/opt/mellanox/hcoll/lib
-ENV LD_PRELOAD=/opt/ibm/spectrum_mpi/lib/libpami_cudahook.so
 
 RUN yum -y update && \
     yum -y install epel-release && \
@@ -37,8 +32,6 @@ RUN cd / && \
     cd /summit-packages/smpi && \
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
     yum -y --nogpgcheck localinstall *.rpm  && \
-#    cd /summit-packages/csm && \
-#    yum -y --nogpgcheck localinstall *.rpm  && \
     cd / && \
     rm -rf /summit-packages && \
     yum -y clean all && \
@@ -58,3 +51,8 @@ RUN export PERL5LIB=. && \
     rm -rf /var/cache/yum && \
     cd / && \
     rm -rf /cuda_install
+
+# jsrun modifies the LD_LIBRARY_PATH and LD_PRELOAD, which are blown away by singularity due to setuid security concerns
+# Additionally /etc/ld.so.conf.d/hcoll.conf and /etc/ld.so.conf.d/jsm.conf are missing for some reason in the container install and so their entries are manually added to LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/opt/ibm/spectrum_mpi/jsm_pmix/lib:/opt/ibm/spectrum_mpi/lib/pami_port:/opt/mellanox/hcoll/lib
+ENV LD_PRELOAD=/opt/ibm/spectrum_mpi/lib/libpami_cudahook.so
