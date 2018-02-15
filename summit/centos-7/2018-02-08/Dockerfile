@@ -1,7 +1,7 @@
 FROM ppc64le/centos:7
 
 COPY qemu-ppc64le-static /usr/bin/qemu-ppc64le-static
-COPY summit_rpm.tar.gz /summit_rpm.tar.gz
+COPY summit_packages.tar.gz /summit_packages.tar.gz
 
 # /opt/mellanox/hcoll/lib shouldn't be needed but the RPM doesn't currently appear to have /etc/ld.so.conf.d/hcoll.conf like it should
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib:/opt/ibm/spectrum_mpi/lib/spectrum_mpi:/opt/ibm/spectrum_mpi/jsm_pmix/lib:/opt/mellanox/hcoll/lib
@@ -25,22 +25,20 @@ RUN yum -y update && \
 
 # Install Spectrum MPI and Mellanox OFED
 RUN cd / && \
-    tar -xf /summit_rpm.tar.gz && \
-    cd /summit_rpm && \
-    tar -xf mellanox.tar.gz && \
-    cd mellanox && \
+    tar -xf /summit_packages.tar.gz && \
+    cd /summit_packages/mellanox && \
     ./mlnxofedinstall -vvv --force --all --user-space-only --distro rhel7.4alternate --without-fw-update --without-openmpi \
                       --without-mlnxofed-docs --without-mpitests_openmpi --without-mpi-selector --without-ibsim \
                       --without-infiniband-diags-compat --without-opensm --without-perftest --without-mstflint --without-mft && \
-    cd /summit_rpm/smpi && \
-    tar -xf ibm_smpi-10.2.0.0-20180110-rh7.ppc64le.tar.gz && \
+    cd /summit_packages/smpi && \
     export IBM_SPECTRUM_MPI_LICENSE_ACCEPT=yes && \
     yum -y --nogpgcheck localinstall *.rpm  && \
     cd / && \
-    rm -rf /summit_rpm && \
+    rm -rf /summit_packages && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
+# Install CUDA toolkit components
 RUN export PERL5LIB=. && \
     mkdir /cuda_install && \
     cd /cuda_install && \
