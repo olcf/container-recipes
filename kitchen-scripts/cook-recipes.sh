@@ -15,6 +15,12 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
         DISTRO=$(basename ${DISTRO_DIR})
         for VERSION_DIR in ${DISTRO_DIR}/*/ ; do
             cd ${VERSION_DIR}
+
+            # Only build if the file ./.ci_build exists in the directory
+            if [ ! -e ./.ci_build ]; then
+                continue
+            fi
+
             VERSION=$(basename ${VERSION_DIR})
             TAG="${DISTRO}_${VERSION}"
             GIT_NAME="code.ornl.gov:4567/olcf/container-recipes/${SYSTEM}"
