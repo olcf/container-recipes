@@ -23,9 +23,9 @@ apt-get install -y docker-ce
 apt-get install -y qemu-user-static binfmt-support zlib1g-dev libglib2.0-dev libpixman-1-dev libfdt-dev libpython2.7-stdlib
 
 # Install a newer qemu from source to support ppc64le
-wget -q 'https://download.qemu.org/qemu-2.11.0.tar.xz'
-tar xvJf qemu-2.11.0.tar.xz
-cd qemu-2.11.0
+wget -q 'https://download.qemu.org/qemu-2.11.1.tar.xz'
+tar xvJf qemu-2.11.1.tar.xz
+cd qemu-2.11.1
 mkdir build
 cd build
 ../configure --static --target-list=ppc64le-linux-user
