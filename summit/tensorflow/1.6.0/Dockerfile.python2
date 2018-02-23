@@ -1,0 +1,14 @@
+FROM olcf/summit:centos-7_2018-02-08
+
+RUN yum -y update && \
+    yum -y install python-pip python-devel numpy scipy python-setuptools && \
+    yum -y clean all && \
+    rm -rf /var/cache/yum
+
+RUN pip install --upgrade pip && \
+    pip install setuptools --upgrade && \
+    pip install --upgrade wheel
+
+RUN wget https://github.com/olcf/container-recipes/raw/master/summit/tensorflow/1.6.0/tensorflow_pkg/tensorflow-1.6.0rc0-cp27-cp27mu-linux_ppc64le.whl && \
+    pip install tensorflow-1.6.0rc0-cp27-cp27mu-linux_ppc64le.whl && \
+    rm -rf tensorflow-1.6.0rc0-cp27-cp27mu-linux_ppc64le.whl
