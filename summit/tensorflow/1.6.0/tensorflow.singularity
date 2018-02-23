@@ -1,0 +1,112 @@
+Bootstrap: localimage
+From: ./base.img
+#Bootstrap: docker
+#From: olcf/summit:centos-7_2018-02-08
+
+%environment
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/lib/jvm/jre-1.8.0/bin
+export JAVA_HOME=/usr/lib/jvm/jre-1.8.0
+
+%post
+
+echo $PATH
+echo $LD_LIBRARY_PATH
+
+export PATH=${PATH}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/cuda/bin:/opt/ibm/spectrum_mpi/bin:/opt/ibm/spectrum_mpi/jsm_pmix/bin
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib:/opt/ibm/spectrum_mpi/lib/spectrum_mpi:/opt/ibm/spectrum_mpi/jsm_pmix/lib:/opt/ibm/spectrum_mpi/lib/pami_port:/opt/mellanox/hcoll/lib:
+
+yum -y update
+yum -y install epel-release
+yum -y update
+yum -y install wget gcc-c++ redhat-lsb libtool autoconf zip unzip git java-1.8.0-openjdk java-devel
+yum -y install atlas atlas-devel gcc-gfortran openssl-devel libffi-devel
+yum -y install python-pip python-devel numpy scipy python-setuptools
+yum -y install python34 python34-devel python34-pip python34-numpy python34-scipy python34-setuptools
+yum -y install glibc-static libstdc++-static
+yum -y install epel-release
+yum -y install numactl
+yum -y clean all
+rm -rf /var/cache/yum
+
+pip install --upgrade pip
+pip install setuptools --upgrade
+pip install --upgrade wheel
+pip install mpi4py
+
+pip3 install --upgrade pip
+pip3 install setuptools --upgrade
+pip3 install --upgrade wheel
+pip3 install mpi4py
+
+wget http://developer.download.nvidia.com/compute/redist/cudnn/v7.0.5/cudnn-9.1-linux-ppc64le-v7.tgz
+tar xvzf cudnn-9.1-linux-ppc64le-v7.tgz
+cp -P cuda/targets/ppc64le-linux/include/cudnn.h /usr/local/cuda/include
+cp -P cuda/targets/ppc64le-linux/lib/libcudnn* /usr/local/cuda/lib64
+chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+rm -rf cudnn-9.1-linux-ppc64le-v7.tgz
+
+ln -s /usr/bin/javac $JAVA_HOME/bin
+ln -s /usr/bin/jar $JAVA_HOME/bin
+
+cd /
+wget https://github.com/bazelbuild/bazel/releases/download/0.10.1/bazel-0.10.1-dist.zip
+unzip bazel-0.10.1-dist.zip -d /bazel
+cd bazel
+./compile.sh
+cd output
+export PATH=$(pwd):$PATH
+rm -rf /bazel-0.10.1-dist.zip
+
+export PYTHON_BIN_PATH=/usr/bin/python3
+export PYTHON_LIB_PATH=/usr/lib64/python3.4/site-packages
+export TF_NEED_MKL=0
+export CC_OPT_FLAGS="-march=native"
+export TF_NEED_JEMALLOC=1
+export TF_NEED_GCP=0
+export TF_NEED_HDFS=0
+export TF_ENABLE_XLA=0
+export TF_NEED_OPENCL=0
+export TF_NEED_CUDA=1
+export TF_CUDA_CLANG=0
+export TF_CUDA_VERSION="9.1"
+export CUDA_TOOLKIT_PATH="/usr/local/cuda"
+export TF_CUDNN_VERSION="7"
+export CUDNN_INSTALL_PATH=$CUDA_TOOLKIT_PATH
+export TF_CUDA_COMPUTE_CAPABILITIES="7.0"
+export TF_NEED_VERBS=0
+export TF_NEED_S3=0
+export TF_NEED_GDR=0
+export TF_NEED_OPENCL_SYCL=0
+export GCC_HOST_COMPILER_PATH=/usr/bin/gcc
+export TF_NEED_MPI=0
+export TF_NEED_KAFKA=0
+export TF_NEED_TENSORRT=0
+export TF_SET_ANDROID_WORKSPACE=0
+
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/cuda/lib64/stubs
+ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
+
+cd /
+wget https://github.com/tensorflow/tensorflow/archive/v1.6.0-rc1.tar.gz
+tar xf v1.6.0-rc1.tar.gz
+cd tensorflow-1.6.0-rc1
+./configure
+bazel --batch build --local_resources 2048,4.0,1.0 -c opt --copt=-std=gnu99 --config=cuda tensorflow/tools/pip_package:build_pip_package
+bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+#pip3 install /tmp/tensorflow_pkg/tensorflow-*.whl
+cd / 
+rm -rf tensorflow-1.6.0-rc1
+
+export PYTHON_BIN_PATH=/usr/bin/python2.7
+export PYTHON_LIB_PATH=/usr/lib64/python2.7/site-packages
+cd /
+wget https://github.com/tensorflow/tensorflow/archive/v1.6.0-rc1.tar.gz
+tar xf v1.6.0-rc1.tar.gz
+cd tensorflow-1.6.0-rc1
+./configure
+bazel --batch build --local_resources 2048,4.0,1.0 -c opt --copt=-std=gnu99 --config=cuda tensorflow/tools/pip_package:build_pip_package
+bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+#pip install /tmp/tensorflow_pkg/tensorflow-*.whl
+cd /
+rm -rf tensorflow-1.6.0-rc1
+
