@@ -1,7 +1,7 @@
 FROM olcf/summit:centos-7_2018-02-08
 
 RUN yum -y update && \
-    yum -y install python-pip python-devel python-setuptools && \
+    yum -y install python34 python34-devel python34-pip python34-setuptools && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
@@ -12,12 +12,12 @@ RUN wget http://developer.download.nvidia.com/compute/redist/cudnn/v7.0.5/cudnn-
     chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn* && \
     rm -rf cudnn-9.1-linux-ppc64le-v7.tgz
 
-RUN pip2 install --upgrade pip && \
-    pip2 install setuptools --upgrade && \
-    pip2 install --upgrade wheel
+RUN pip3 install --upgrade pip && \
+    pip3 install setuptools --upgrade && \
+    pip3 install --upgrade wheel
 
-RUN wget https://github.com/olcf/container-recipes/raw/master/summit/tensorflow/1.6.0/wheelhouse_py2.tgz && \
+RUN wget https://github.com/olcf/container-recipes/raw/master/summit/tensorflow/1.6.0/wheelhouse_py3.tgz && \
     tar xf wheelhouse_py2.tgz && \
-    pip2 install wheelhouse_py2/* && \
+    pip3 install wheelhouse_py2/* && \
     rm -rf wheelhouse_py2.tgz && \
     rm -rf wheelhouse_py2
