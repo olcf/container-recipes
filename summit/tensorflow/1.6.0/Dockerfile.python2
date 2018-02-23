@@ -1,7 +1,7 @@
 FROM olcf/summit:centos-7_2018-02-08
 
 RUN yum -y update && \
-    yum -y install python-pip python-devel python-setuptools && \
+    yum -y install atlas python-pip python-devel python-setuptools && \
     yum -y clean all && \
     rm -rf /var/cache/yum
 
