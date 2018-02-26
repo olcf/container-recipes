@@ -21,3 +21,8 @@ RUN wget https://github.com/olcf/container-recipes/raw/master/summit/tensorflow/
     pip3 install wheelhouse_py2/* && \
     rm -rf wheelhouse_py2.tgz && \
     rm -rf wheelhouse_py2
+
+RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 && \
+    ldconfig /usr/local/cuda/lib64/stubs && \
+    pip3 install horovod && \
+    ldconfig
