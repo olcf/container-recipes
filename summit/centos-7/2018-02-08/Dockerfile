@@ -1,7 +1,7 @@
 FROM ppc64le/centos:7
 
 COPY qemu-ppc64le-static /usr/bin/qemu-ppc64le-static
-COPY ../2018-03-02/summit-packages.tar.gz /summit-packages.tar.gz
+COPY ../2018-02-08/summit-packages.tar.gz /summit-packages.tar.gz
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64:/opt/ibm/spectrum_mpi/lib:/opt/ibm/spectrum_mpi/lib/spectrum_mpi
 ENV PATH=${PATH:-}:/usr/local/cuda/bin:/opt/ibm/spectrum_mpi/bin:/opt/ibm/spectrum_mpi/jsm_pmix/bin
