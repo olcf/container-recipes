@@ -20,8 +20,8 @@ yum -y install epel-release
 yum -y update
 yum -y install wget gcc-c++ redhat-lsb libtool autoconf zip unzip git java-1.8.0-openjdk java-devel
 yum -y install atlas atlas-devel gcc-gfortran openssl-devel libffi-devel
-yum -y install python-pip python-devel python-setuptools
-yum -y install python34 python34-devel python34-pip python34-setuptools
+yum -y install python-pip python-devel numpy python-setuptools
+yum -y install python34 python34-devel python34-pip python34-numpy python34-setuptools
 yum -y install glibc-static libstdc++-static
 yum -y install epel-release
 yum -y install numactl
@@ -44,9 +44,6 @@ cp -P cuda/targets/ppc64le-linux/include/cudnn.h /usr/local/cuda/include
 cp -P cuda/targets/ppc64le-linux/lib/libcudnn* /usr/local/cuda/lib64
 chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
 rm -rf cudnn-9.1-linux-ppc64le-v7.tgz
-
-ln -s /usr/bin/javac $JAVA_HOME/bin
-ln -s /usr/bin/jar $JAVA_HOME/bin
 
 cd /
 wget https://github.com/bazelbuild/bazel/releases/download/0.10.1/bazel-0.10.1-dist.zip
