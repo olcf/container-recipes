@@ -6,14 +6,20 @@ set -e
 TOP_DIR=$(cd `dirname $0`/.. && pwd)
 
 # System directories in which to look for builds in
-SYSTEMS=(titan summit summitdev)
+SYSTEMS=(titan summit)
 
 # Loop through directory structure container-recipes/{SYSTEM}/{DISTRO}_{TAG} and build image
 for SYSTEM in "${SYSTEMS[@]}" ; do
     SYSTEM_DIR=${TOP_DIR}/${SYSTEM}
     for DISTRO_DIR in ${SYSTEM_DIR}/*/ ; do
         DISTRO=$(basename ${DISTRO_DIR})
+        if [[ ! -z ${DISTRO+x} ]]; then
+            continue
+        fi
         for VERSION_DIR in ${DISTRO_DIR}/*/ ; do
+            if [[ ! -z ${VERSION_DIR+x} ]]; then
+                continue
+            fi
             cd ${VERSION_DIR}
 
             # Only build if the file ./.ci_build exists in the directory
