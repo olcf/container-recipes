@@ -1,4 +1,4 @@
-FROM olcf/summit:centos-7_2018-02-08
+FROM olcf/summit:centos-7_2018-03-02
 
 RUN yum -y update && \
     yum -y install atlas python-pip python-devel python-setuptools && \
