@@ -13,11 +13,11 @@ for SYSTEM in "${SYSTEMS[@]}" ; do
     SYSTEM_DIR=${TOP_DIR}/${SYSTEM}
     for DISTRO_DIR in ${SYSTEM_DIR}/*/ ; do
         DISTRO=$(basename ${DISTRO_DIR})
-        if [[ ! -z ${DISTRO+x} ]]; then
+        if [[ -z ${DISTRO+x} ]]; then
             continue
         fi
         for VERSION_DIR in ${DISTRO_DIR}/*/ ; do
-            if [[ ! -z ${VERSION_DIR+x} ]]; then
+            if [[ -z ${VERSION_DIR+x} ]]; then
                 continue
             fi
             cd ${VERSION_DIR}
