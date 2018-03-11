@@ -1,0 +1,14 @@
+FROM olcf/summit:centos-7_2018-03-02
+
+RUN yum -y update && \
+    yum -y install epel-release && \
+    yum -y update && \
+    yum -y install bzip2 && \
+    yum -y clean all && \
+    rm -rf /var/cache/yum
+
+RUN wget https://repo.continuum.io/archive/Anaconda2-5.1.0-Linux-ppc64le.sh && \
+    bash Anaconda2-5.1.0-Linux-ppc64le.sh -b -p /opt/conda && \
+    rm Anaconda2-5.1.0-Linux-ppc64le.sh
+
+ENV PATH ${PATH}:/opt/conda/bin
