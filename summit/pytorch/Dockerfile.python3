@@ -18,6 +18,6 @@ RUN wget --progress=bar:force http://developer.download.nvidia.com/compute/redis
 RUN pip3 install pyyaml typing && \
     git clone --recursive https://github.com/pytorch/pytorch && \
     cd pytorch && \
-    python setup.py install && \
+    python3 setup.py install && \
     cd \ && \
     rm -rf pytorch
