@@ -1,18 +1,24 @@
 FROM olcf/titan:ubuntu-16.04_2018-01-18
 
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}:/usr/local/cuda/lib:/usr/local/cuda/lib64
-ENV PATH=${PATH:-}:/usr/local/cuda/bin:/usr/lib/jvm/java-8-openjdk-amd64/bin/:/usr/local/bin
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV PATH=${PATH:-}:/usr/local/cuda/bin:/usr/lib/jvm/jdk1.8.0_152/bin/:/usr/local/bin
+ENV JAVA_HOME=/usr/lib/jvm/jdk1.8.0_152
 
 RUN apt update && \
     apt-get install -y software-properties-common && \
     apt-add-repository universe && \
     apt update && \
     apt install -y mpich && \
-    apt install -y build-essential wget curl pkg-config libtool autoconf openjdk-8-jdk g++ zip zlib1g-dev unzip git && \
+    apt install -y build-essential wget curl pkg-config libtool autoconf g++ zip zlib1g-dev unzip git && \
     apt install -y python-numpy python-scipy python-dev python-pip python-setuptools && \
     apt install -y python3-numpy python3-scipy python3-dev python3-pip python3-setuptools && \
     rm -rf /var/lib/apt/lists/*
+
+RUN wget http://ftp.osuosl.org/pub/funtoo/distfiles/oracle-java/jdk-8u152-linux-x64.tar.gz && \
+    tar xf jdk-8u152-linux-x64.tar.gz && \
+    mkdir -p /usr/lib/jvm && \
+    mv jdk1.8.0_152 /usr/lib/jvm && \
+    rm -rf jdk-8u152-linux-x64.tar.gz
 
 RUN pip2 install --upgrade pip && \
     pip3 install --upgrade pip && \
