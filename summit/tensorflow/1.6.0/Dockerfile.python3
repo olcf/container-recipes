@@ -17,10 +17,10 @@ RUN pip3 install --upgrade pip && \
     pip3 install --upgrade wheel
 
 RUN wget https://github.com/olcf/container-recipes/raw/master/summit/tensorflow/1.6.0/wheelhouse_py3.tgz && \
-    tar xf wheelhouse_py2.tgz && \
-    pip3 install wheelhouse_py2/* && \
-    rm -rf wheelhouse_py2.tgz && \
-    rm -rf wheelhouse_py2
+    tar xf wheelhouse_py3.tgz && \
+    pip3 install wheelhouse_py3/* && \
+    rm -rf wheelhouse_py3.tgz && \
+    rm -rf wheelhouse_py3
 
 RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 && \
     ldconfig /usr/local/cuda/lib64/stubs && \

@@ -1,0 +1,23 @@
+FROM olcf/summit:centos-7_2018-03-02
+
+RUN yum -y update && \
+    yum -y install epel-release && \
+    yum -y update && \
+    yum -y install bzip2 git cmake3 python34 python34-pip python34-devel python34-setuptools && \
+    ln -s /usr/bin/cmake3 /usr/bin/cmake && \
+    yum -y clean all && \
+    rm -rf /var/cache/yum
+
+RUN wget --progress=bar:force http://developer.download.nvidia.com/compute/redist/cudnn/v7.0.5/cudnn-9.1-linux-ppc64le-v7.tgz && \
+    tar xvzf cudnn-9.1-linux-ppc64le-v7.tgz && \
+    cp -P cuda/targets/ppc64le-linux/include/cudnn.h /usr/local/cuda/include && \
+    cp -P cuda/targets/ppc64le-linux/lib/libcudnn* /usr/local/cuda/lib64 && \
+    chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn* && \
+    rm -rf cudnn-9.1-linux-ppc64le-v7.tgz
+
+RUN pip3 install pyyaml typing && \
+    git clone --recursive https://github.com/pytorch/pytorch && \
+    cd pytorch && \
+    python3 setup.py install && \
+    cd \ && \
+    rm -rf pytorch
