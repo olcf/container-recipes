@@ -19,5 +19,5 @@ RUN pip2 install pyyaml typing && \
     git clone --recursive https://github.com/pytorch/pytorch && \
     cd pytorch && \
     python setup.py install && \
-    cd \ && \
+    cd / && \
     rm -rf pytorch

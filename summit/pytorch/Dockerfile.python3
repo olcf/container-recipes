@@ -19,5 +19,5 @@ RUN pip3 install pyyaml typing && \
     git clone --recursive https://github.com/pytorch/pytorch && \
     cd pytorch && \
     python3 setup.py install && \
-    cd \ && \
+    cd / && \
     rm -rf pytorch
