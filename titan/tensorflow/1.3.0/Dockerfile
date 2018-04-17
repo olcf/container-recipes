@@ -20,13 +20,6 @@ RUN wget http://ftp.osuosl.org/pub/funtoo/distfiles/oracle-java/jdk-8u152-linux-
     mv jdk1.8.0_152 /usr/lib/jvm && \
     rm -rf jdk-8u152-linux-x64.tar.gz
 
-RUN pip2 install --upgrade pip && \
-    pip3 install --upgrade pip && \
-    pip2 install setuptools --upgrade && \
-    pip3 install setuptools --upgrade && \
-    pip2 install --upgrade wheel && \
-    pip3 install --upgrade wheel
-
 RUN wget http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/cudnn-7.5-linux-x64-v6.0.tgz && \
     tar xvzf cudnn-7.5-linux-x64-v6.0.tgz && \
     cp -P cuda/include/cudnn.h /usr/local/cuda/include && \
