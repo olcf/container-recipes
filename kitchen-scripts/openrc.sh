@@ -26,7 +26,8 @@ unset OS_TENANT_NAME
 
 # In addition to the owning entity (tenant), OpenStack stores the entity
 # performing the action as the **user**.
-export OS_USERNAME="atj"
+# Use a UCAMS Project User here.
+export OS_USERNAME="cat"
 
 # With Keystone you pass the keystone password.
 echo "Please enter your OpenStack Password: "
