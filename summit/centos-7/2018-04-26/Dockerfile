@@ -26,7 +26,7 @@ RUN yum -y update && \
 RUN cd / && \
     tar -xf /summit-packages.tar.gz && \
     cd /summit-packages/mellanox && \
-    ./mlnxofedinstall -vvv --force --all --user-space-only --distro rhel7.4alternate --without-fw-update --without-openmpi \
+    ./mlnxofedinstall -vvv --force --all --user-space-only --distro rhel7.5alternate --without-fw-update --without-openmpi \
                       --without-mlnxofed-docs --without-mpitests_openmpi --without-mpi-selector --without-ibsim \
                       --without-infiniband-diags-compat --without-opensm --without-perftest --without-mstflint --without-mft && \
     cd /summit-packages/smpi && \

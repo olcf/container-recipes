@@ -13,8 +13,8 @@ tar -xf ibm_smpi-10.2.0.0-20180406-rh7.ppc64le.tar.gz
 # Update the JSM RPM
 cp /ccs/packages/IBM/04-2018/smpi/ibm_smpi-jsm-10.02.00.00prpq-rh7_20180404.ppc64le.rpm ${TOP_DIR}/summit-packages/smpi
 
-# Mellanox OFED - directory created by mounting MLNX_OFED_LINUX-4.1-4.1.5.2-rhel7.4alternate-ppc64le.iso
-cp -r /ccs/packages/IBM/02-2018/mellanox ${TOP_DIR}/summit-packages
+# Mellanox OFED - directory created by mounting MLNX_OFED_LINUX-4.3-2.0.2.1-rhel7.5alternate-ppc64le.iso
+cp -r /ccs/packages/IBM/04-2018/MLNX/mellanox ${TOP_DIR}/summit-packages
 
 # Remove large OFED packages that aren't required
 chmod +w -R ${TOP_DIR}/summit-packages/mellanox
