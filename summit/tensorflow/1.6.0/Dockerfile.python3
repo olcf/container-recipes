@@ -24,5 +24,6 @@ RUN wget https://github.com/olcf/container-recipes/raw/master/summit/tensorflow/
 
 RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 && \
     ldconfig /usr/local/cuda/lib64/stubs && \
+    yum -y install libffi-devel.ppc64le && \
     pip3 install horovod && \
     ldconfig
