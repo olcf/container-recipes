@@ -1,3 +1,7 @@
+***
+# This repository has been deprecated, and is not guaranteed to work. It is preserved here for reference.
+***
+
 # Container Recipes
 The `container-recipes` repository is a collection of recipe scripts and base images to facilitate building `Singularity` containers on OLCF HPC resources.
 
